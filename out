@@ -1,0 +1,1251 @@
+            ; CALL XREF from sym.permute @ 0x11a5(x)
+            ; CALL XREFS from sym.des_main @ 0x1286(x), 0x129c(x)
+┌ 6: void *sym.imp.memset (void *s, int c, size_t n);
+└           0x00001030      ff25ca3f0000   jmp qword [reloc.memset]    ; [0x5000:8]=0x1036 ; "6\x10"
+            ; XREFS: CALL 0x00001afc  CALL 0x00001b63  CALL 0x00001c04  
+            ; XREFS: CALL 0x00001c6b  CALL 0x00001cf5  CALL 0x00001d5c  
+            ; XREFS: CALL 0x00001dfd  CALL 0x00001e64  
+┌ 6: int sym.imp.fprintf (FILE *stream, const char *format,   ...);
+└           0x00001040      ff25c23f0000   jmp qword [reloc.fprintf]   ; [0x5008:8]=0x1046 ; "F\x10"
+            ; CALL XREF from sym.permute @ 0x1224(x)
+┌ 6: void *sym.imp.memcpy (void *s1, const void *s2, size_t n);
+└           0x00001050      ff25ba3f0000   jmp qword [reloc.memcpy]    ; [0x5010:8]=0x1056 ; "V\x10"
+            ; CALL XREFS from main @ 0x1a36(x), 0x1a99(x), 0x1ba1(x), 0x1c92(x), 0x1d9a(x)
+┌ 6: size_t sym.imp.fwrite (const void *ptr, size_t size, size_t nitems, FILE *stream);
+└           0x00001060      ff25b23f0000   jmp qword [reloc.fwrite]    ; [0x5018:8]=0x1066 ; "f\x10"
+            ;-- section..plt.got:
+            ; CALL XREF from sym.__do_global_dtors_aux @ 0x1142(x)
+┌ 6: sym.imp.__cxa_finalize ();
+└           0x00001070      ff256a3f0000   jmp qword [reloc.__cxa_finalize] ; [0x4fe0:8]=0 ; [14] -r-x section size 8 named .plt.got
+            ;-- section..text:
+            ;-- _start:
+            ;-- rip:
+┌ 33: entry0 (int64_t arg3);
+│           ; arg int64_t arg3 @ rdx
+│           0x00001080      31ed           xor ebp, ebp                ; [15] -r-x section size 3572 named .text
+│           0x00001082      4989d1         mov r9, rdx                 ; arg3
+│           0x00001085      5e             pop rsi
+│           0x00001086      4889e2         mov rdx, rsp
+│           0x00001089      4883e4f0       and rsp, 0xfffffffffffffff0
+│           0x0000108d      50             push rax
+│           0x0000108e      54             push rsp
+│           0x0000108f      4531c0         xor r8d, r8d
+│           0x00001092      31c9           xor ecx, ecx
+│           0x00001094      488d3d6e09..   lea rdi, [main]             ; 0x1a09
+└           0x0000109b      ff151f3f0000   call qword [reloc.__libc_start_main] ; [0x4fc0:8]=0
+            ; CALL XREF from sym.__do_global_dtors_aux @ 0x1147(x)
+┌ 34: sym.deregister_tm_clones ();
+│           0x000010b0      488d3d793f..   lea rdi, loc._edata         ; obj.__TMC_END__
+│                                                                      ; 0x5030
+│           0x000010b7      488d05723f..   lea rax, loc._edata         ; obj.__TMC_END__
+│                                                                      ; 0x5030
+│           0x000010be      4839f8         cmp rax, rdi
+│       ┌─< 0x000010c1      7415           je 0x10d8
+│       │   0x000010c3      488b05fe3e..   mov rax, qword [reloc._ITM_deregisterTMCloneTable] ; [0x4fc8:8]=0
+│       │   0x000010ca      4885c0         test rax, rax
+│      ┌──< 0x000010cd      7409           je 0x10d8
+│      ││   0x000010cf      ffe0           jmp rax
+..
+│      ││   ; CODE XREFS from sym.deregister_tm_clones @ 0x10c1(x), 0x10cd(x)
+└      └└─> 0x000010d8      c3             ret
+            ; CODE XREF from sym.frame_dummy @ 0x1164(x)
+┌ 51: sym.register_tm_clones ();
+│           0x000010e0      488d3d493f..   lea rdi, loc._edata         ; obj.__TMC_END__
+│                                                                      ; 0x5030
+│           0x000010e7      488d35423f..   lea rsi, loc._edata         ; obj.__TMC_END__
+│                                                                      ; 0x5030
+│           0x000010ee      4829fe         sub rsi, rdi
+│           0x000010f1      4889f0         mov rax, rsi
+│           0x000010f4      48c1ee3f       shr rsi, 0x3f
+│           0x000010f8      48c1f803       sar rax, 3
+│           0x000010fc      4801c6         add rsi, rax
+│           0x000010ff      48d1fe         sar rsi, 1
+│       ┌─< 0x00001102      7414           je 0x1118
+│       │   0x00001104      488b05cd3e..   mov rax, qword [reloc._ITM_registerTMCloneTable] ; [0x4fd8:8]=0
+│       │   0x0000110b      4885c0         test rax, rax
+│      ┌──< 0x0000110e      7408           je 0x1118
+│      ││   0x00001110      ffe0           jmp rax
+..
+│      ││   ; CODE XREFS from sym.register_tm_clones @ 0x1102(x), 0x110e(x)
+└      └└─> 0x00001118      c3             ret
+            ;-- entry.fini0:
+┌ 54: sym.__do_global_dtors_aux ();
+│           0x00001120      f30f1efa       endbr64
+│           0x00001124      803d1d3f00..   cmp byte [obj.completed.0], 0 ; [0x5048:1]=0
+│       ┌─< 0x0000112b      752b           jne 0x1158
+│       │   0x0000112d      55             push rbp
+│       │   0x0000112e      48833daa3e..   cmp qword [reloc.__cxa_finalize], 0 ; [0x4fe0:8]=0
+│       │   0x00001136      4889e5         mov rbp, rsp
+│      ┌──< 0x00001139      740c           je 0x1147
+│      ││   0x0000113b      488b3de63e..   mov rdi, qword [obj.__dso_handle] ; [0x5028:8]=0x5028 obj.__dso_handle ; "(P"
+│      ││   0x00001142      e829ffffff     call sym.imp.__cxa_finalize
+│      ││   ; CODE XREF from sym.__do_global_dtors_aux @ 0x1139(x)
+│      └──> 0x00001147      e864ffffff     call sym.deregister_tm_clones
+│       │   0x0000114c      c605f53e00..   mov byte [obj.completed.0], 1 ; [0x5048:1]=0
+│       │   0x00001153      5d             pop rbp
+│       │   0x00001154      c3             ret
+..
+│       │   ; CODE XREF from sym.__do_global_dtors_aux @ 0x112b(x)
+└       └─> 0x00001158      c3             ret
+        ╎   ;-- entry.init0:
+┌ 9: sym.frame_dummy ();
+│       ╎   0x00001160      f30f1efa       endbr64
+└       └─< 0x00001164      e977ffffff     jmp sym.register_tm_clones
+            ; XREFS: CALL 0x00001270  CALL 0x0000143c  CALL 0x00001470  
+            ; XREFS: CALL 0x000014a9  CALL 0x0000169e  CALL 0x00001702  
+┌ 195: sym.permute (void *arg1, int64_t arg2, signed int64_t arg3);
+│           ; arg void *arg1 @ rdi
+│           ; arg int64_t arg2 @ rsi
+│           ; arg signed int64_t arg3 @ rdx
+│           ; var int64_t var_4h @ rbp-0x4
+│           ; var void *s2 @ rbp-0xc
+│           ; var void *s1 @ rbp-0x18
+│           ; var int64_t var_20h @ rbp-0x20
+│           ; var signed int64_t var_24h @ rbp-0x24
+│           0x00001169      55             push rbp
+│           0x0000116a      4889e5         mov rbp, rsp
+│           0x0000116d      4883ec30       sub rsp, 0x30
+│           0x00001171      48897de8       mov qword [s1], rdi         ; arg1
+│           0x00001175      488975e0       mov qword [var_20h], rsi    ; arg2
+│           0x00001179      8955dc         mov dword [var_24h], edx    ; arg3
+│           0x0000117c      8b45dc         mov eax, dword [var_24h]
+│           0x0000117f      8d5007         lea edx, [rax + 7]
+│           0x00001182      85c0           test eax, eax
+│           0x00001184      0f48c2         cmovs eax, edx
+│           0x00001187      c1f803         sar eax, 3
+│           0x0000118a      660fefc0       pxor xmm0, xmm0
+│           0x0000118e      f20f2ac0       cvtsi2sd xmm0, eax
+│           0x00001192      f20f2cc0       cvttsd2si eax, xmm0
+│           0x00001196      4863d0         movsxd rdx, eax             ; size_t n
+│           0x00001199      488d45f4       lea rax, [s2]
+│           0x0000119d      be00000000     mov esi, 0                  ; int c
+│           0x000011a2      4889c7         mov rdi, rax                ; void *s
+│           0x000011a5      e886feffff     call sym.imp.memset         ; void *memset(void *s, int c, size_t n)
+│           0x000011aa      c745fc0000..   mov dword [var_4h], 0
+│       ┌─< 0x000011b1      eb3e           jmp 0x11f1
+│       │   ; CODE XREF from sym.permute @ 0x11f7(x)
+│      ┌──> 0x000011b3      8b45fc         mov eax, dword [var_4h]
+│      ╎│   0x000011b6      4898           cdqe
+│      ╎│   0x000011b8      488d148500..   lea rdx, [rax*4]
+│      ╎│   0x000011c0      488b45e0       mov rax, qword [var_20h]
+│      ╎│   0x000011c4      4801d0         add rax, rdx
+│      ╎│   0x000011c7      8b00           mov eax, dword [rax]
+│      ╎│   0x000011c9      8d50ff         lea edx, [rax - 1]
+│      ╎│   0x000011cc      488b45e8       mov rax, qword [s1]
+│      ╎│   0x000011d0      89d6           mov esi, edx                ; int64_t arg2
+│      ╎│   0x000011d2      4889c7         mov rdi, rax                ; int64_t arg1
+│      ╎│   0x000011d5      e898050000     call sym.bit_get
+│      ╎│   0x000011da      89c2           mov edx, eax                ; uint32_t arg3
+│      ╎│   0x000011dc      8b4dfc         mov ecx, dword [var_4h]
+│      ╎│   0x000011df      488d45f4       lea rax, [s2]
+│      ╎│   0x000011e3      89ce           mov esi, ecx                ; int64_t arg2
+│      ╎│   0x000011e5      4889c7         mov rdi, rax                ; int64_t arg1
+│      ╎│   0x000011e8      e8e6050000     call sym.bit_set
+│      ╎│   0x000011ed      8345fc01       add dword [var_4h], 1
+│      ╎│   ; CODE XREF from sym.permute @ 0x11b1(x)
+│      ╎└─> 0x000011f1      8b45fc         mov eax, dword [var_4h]
+│      ╎    0x000011f4      3b45dc         cmp eax, dword [var_24h]
+│      └──< 0x000011f7      7cba           jl 0x11b3
+│           0x000011f9      8b45dc         mov eax, dword [var_24h]
+│           0x000011fc      8d5007         lea edx, [rax + 7]
+│           0x000011ff      85c0           test eax, eax
+│           0x00001201      0f48c2         cmovs eax, edx
+│           0x00001204      c1f803         sar eax, 3
+│           0x00001207      660fefc0       pxor xmm0, xmm0
+│           0x0000120b      f20f2ac0       cvtsi2sd xmm0, eax
+│           0x0000120f      f20f2cc0       cvttsd2si eax, xmm0
+│           0x00001213      4863d0         movsxd rdx, eax             ; size_t n
+│           0x00001216      488d4df4       lea rcx, [s2]
+│           0x0000121a      488b45e8       mov rax, qword [s1]
+│           0x0000121e      4889ce         mov rsi, rcx                ; const void *s2
+│           0x00001221      4889c7         mov rdi, rax                ; void *s1
+│           0x00001224      e827feffff     call sym.imp.memcpy         ; void *memcpy(void *s1, const void *s2, size_t n)
+│           0x00001229      90             nop
+│           0x0000122a      c9             leave
+└           0x0000122b      c3             ret
+            ; CALL XREF from sym.des_encipher @ 0x173a(x)
+            ; CALL XREF from sym.des_decipher @ 0x176a(x)
+┌ 1254: sym.des_main (int64_t arg1, int64_t arg2, uint32_t arg3, uint32_t arg4);
+│           ; arg int64_t arg1 @ rdi
+│           ; arg int64_t arg2 @ rsi
+│           ; arg uint32_t arg3 @ rdx
+│           ; arg uint32_t arg4 @ rcx
+│           ; var int64_t var_8h @ rbp-0x8
+│           ; var signed int64_t var_14h @ rbp-0x14
+│           ; var signed int64_t var_18h @ rbp-0x18
+│           ; var signed int64_t var_1ch @ rbp-0x1c
+│           ; var int64_t var_20h @ rbp-0x20
+│           ; var int64_t var_24h @ rbp-0x24
+│           ; var int64_t var_28h @ rbp-0x28
+│           ; var int64_t var_2ch @ rbp-0x2c
+│           ; var int64_t var_30h @ rbp-0x30
+│           ; var void *s @ rbp-0x34
+│           ; var void *var_38h @ rbp-0x38
+│           ; var int64_t var_3eh @ rbp-0x3e
+│           ; var int64_t var_44h @ rbp-0x44
+│           ; var int64_t var_46h @ rbp-0x46
+│           ; var int64_t var_4ah @ rbp-0x4a
+│           ; var int64_t var_4ch @ rbp-0x4c
+│           ; var int64_t var_50h @ rbp-0x50
+│           ; var int64_t var_51h @ rbp-0x51
+│           ; var int64_t var_68h @ rbp-0x68
+│           ; var int64_t var_70h @ rbp-0x70
+│           ; var uint32_t var_78h @ rbp-0x78
+│           ; var uint32_t var_7ch @ rbp-0x7c
+│           0x0000122c      55             push rbp
+│           0x0000122d      4889e5         mov rbp, rsp
+│           0x00001230      53             push rbx
+│           0x00001231      4883ec78       sub rsp, 0x78
+│           0x00001235      48897d98       mov qword [var_68h], rdi    ; arg1
+│           0x00001239      48897590       mov qword [var_70h], rsi    ; arg2
+│           0x0000123d      48895588       mov qword [var_78h], rdx    ; arg3
+│           0x00001241      894d84         mov dword [var_7ch], ecx    ; arg4
+│           0x00001244      48837d8800     cmp qword [var_78h], 0
+│       ┌─< 0x00001249      0f8400020000   je 0x144f
+│       │   0x0000124f      488b4588       mov rax, qword [var_78h]
+│       │   0x00001253      488b00         mov rax, qword [rax]
+│       │   0x00001256      488945d0       mov qword [var_30h], rax
+│       │   0x0000125a      488d45d0       lea rax, [var_30h]
+│       │   0x0000125e      ba38000000     mov edx, 0x38               ; '8' ; int64_t arg3
+│       │   0x00001263      488d0db60d..   lea rcx, obj.DesTransform   ; 0x2020 ; U"91)!\x19\x11\t\x01:2*\"\x1a\x12\n\x02;3+#\x1b\x13\v\x03<4,$?7/'\x1f\x17\x0f\a>6.&\x1e\x16\x0e\x06=5-%\x1d\x15\r\x05\x1c\x14\f\x04\x01\x01\x02\x02\x02\x02\x02\x02\x01\x02\x02\x02\x02\x02\x02\x01\x0e\x11\v\x18\x01\x05\x03\x1c\x0f\x06\x15\n\x17\x13\f\x04\x1a\b\x10\a\x1b\x14\r\x02)4\x1f%/7\x1e(3-!0,1'8\"5.*2$\x1d :2*\"\x1a\x12\n\x02<4,$\x1c\x14\f\x04>6.&\x1e\x16\x0e\x06@80( \x18\x10\b91)!\x19\x11\t\x01;3+#\x1b\x13\v\x03=5-%\x1d\x15\r\x05?7/'\x1f\x17\x0f\a \x01\x02\x03\x04\x05\x04\x05\x06\a\b\t\b\t\n\v\f\r\f\r\x0e\x0f\x10\x11\x10\x11\x12\x13\x14\x15\x14\x15\x16\x17\x18\x19\x18\x19\x1a\x1b\x1c\x1d\x1c\x1d\x1e\x1f \x01\x0e\x04\r\x01\x02\x0f\v\b\x03\n\x06\f\x05\t"
+│       │   0x0000126a      4889ce         mov rsi, rcx                ; int64_t arg2
+│       │   0x0000126d      4889c7         mov rdi, rax                ; int64_t arg1
+│       │   0x00001270      e8f4feffff     call sym.permute
+│       │   0x00001275      488d45cc       lea rax, [s]
+│       │   0x00001279      ba04000000     mov edx, 4                  ; size_t n
+│       │   0x0000127e      be00000000     mov esi, 0                  ; int c
+│       │   0x00001283      4889c7         mov rdi, rax                ; void *s
+│       │   0x00001286      e8a5fdffff     call sym.imp.memset         ; void *memset(void *s, int c, size_t n)
+│       │   0x0000128b      488d45c8       lea rax, [var_38h]
+│       │   0x0000128f      ba04000000     mov edx, 4                  ; size_t n
+│       │   0x00001294      be00000000     mov esi, 0                  ; int c
+│       │   0x00001299      4889c7         mov rdi, rax                ; void *s
+│       │   0x0000129c      e88ffdffff     call sym.imp.memset         ; void *memset(void *s, int c, size_t n)
+│       │   0x000012a1      c745e80000..   mov dword [var_18h], 0
+│      ┌──< 0x000012a8      eb28           jmp 0x12d2
+│      ││   ; CODE XREF from sym.des_main @ 0x12d6(x)
+│     ┌───> 0x000012aa      8b55e8         mov edx, dword [var_18h]
+│     ╎││   0x000012ad      488d45d0       lea rax, [var_30h]
+│     ╎││   0x000012b1      89d6           mov esi, edx                ; int64_t arg2
+│     ╎││   0x000012b3      4889c7         mov rdi, rax                ; int64_t arg1
+│     ╎││   0x000012b6      e8b7040000     call sym.bit_get
+│     ╎││   0x000012bb      89c2           mov edx, eax                ; uint32_t arg3
+│     ╎││   0x000012bd      8b4de8         mov ecx, dword [var_18h]
+│     ╎││   0x000012c0      488d45cc       lea rax, [s]
+│     ╎││   0x000012c4      89ce           mov esi, ecx                ; int64_t arg2
+│     ╎││   0x000012c6      4889c7         mov rdi, rax                ; int64_t arg1
+│     ╎││   0x000012c9      e805050000     call sym.bit_set
+│     ╎││   0x000012ce      8345e801       add dword [var_18h], 1
+│     ╎││   ; CODE XREF from sym.des_main @ 0x12a8(x)
+│     ╎└──> 0x000012d2      837de81b       cmp dword [var_18h], 0x1b
+│     └───< 0x000012d6      7ed2           jle 0x12aa
+│       │   0x000012d8      c745e80000..   mov dword [var_18h], 0
+│      ┌──< 0x000012df      eb2b           jmp 0x130c
+│      ││   ; CODE XREF from sym.des_main @ 0x1310(x)
+│     ┌───> 0x000012e1      8b45e8         mov eax, dword [var_18h]
+│     ╎││   0x000012e4      8d501c         lea edx, [rax + 0x1c]
+│     ╎││   0x000012e7      488d45d0       lea rax, [var_30h]
+│     ╎││   0x000012eb      89d6           mov esi, edx                ; int64_t arg2
+│     ╎││   0x000012ed      4889c7         mov rdi, rax                ; int64_t arg1
+│     ╎││   0x000012f0      e87d040000     call sym.bit_get
+│     ╎││   0x000012f5      89c2           mov edx, eax                ; uint32_t arg3
+│     ╎││   0x000012f7      8b4de8         mov ecx, dword [var_18h]
+│     ╎││   0x000012fa      488d45c8       lea rax, [var_38h]
+│     ╎││   0x000012fe      89ce           mov esi, ecx                ; int64_t arg2
+│     ╎││   0x00001300      4889c7         mov rdi, rax                ; int64_t arg1
+│     ╎││   0x00001303      e8cb040000     call sym.bit_set
+│     ╎││   0x00001308      8345e801       add dword [var_18h], 1
+│     ╎││   ; CODE XREF from sym.des_main @ 0x12df(x)
+│     ╎└──> 0x0000130c      837de81b       cmp dword [var_18h], 0x1b
+│     └───< 0x00001310      7ecf           jle 0x12e1
+│       │   0x00001312      c745ec0000..   mov dword [var_14h], 0
+│      ┌──< 0x00001319      e927010000     jmp 0x1445
+│      ││   ; CODE XREF from sym.des_main @ 0x1449(x)
+│     ┌───> 0x0000131e      8b45ec         mov eax, dword [var_14h]
+│     ╎││   0x00001321      4898           cdqe
+│     ╎││   0x00001323      488d148500..   lea rdx, [rax*4]
+│     ╎││   0x0000132b      488d05ce0d..   lea rax, obj.DesRotations   ; 0x2100
+│     ╎││   0x00001332      8b1402         mov edx, dword [rdx + rax]  ; signed int64_t arg3
+│     ╎││   0x00001335      488d45cc       lea rax, [s]
+│     ╎││   0x00001339      be1c000000     mov esi, 0x1c               ; signed int64_t arg2
+│     ╎││   0x0000133e      4889c7         mov rdi, rax                ; int64_t arg1
+│     ╎││   0x00001341      e8da050000     call sym.bit_rot_left
+│     ╎││   0x00001346      8b45ec         mov eax, dword [var_14h]
+│     ╎││   0x00001349      4898           cdqe
+│     ╎││   0x0000134b      488d148500..   lea rdx, [rax*4]
+│     ╎││   0x00001353      488d05a60d..   lea rax, obj.DesRotations   ; 0x2100
+│     ╎││   0x0000135a      8b1402         mov edx, dword [rdx + rax]  ; signed int64_t arg3
+│     ╎││   0x0000135d      488d45c8       lea rax, [var_38h]
+│     ╎││   0x00001361      be1c000000     mov esi, 0x1c               ; signed int64_t arg2
+│     ╎││   0x00001366      4889c7         mov rdi, rax                ; int64_t arg1
+│     ╎││   0x00001369      e8b2050000     call sym.bit_rot_left
+│     ╎││   0x0000136e      c745e80000..   mov dword [var_18h], 0
+│    ┌────< 0x00001375      eb41           jmp 0x13b8
+│    │╎││   ; CODE XREF from sym.des_main @ 0x13bc(x)
+│   ┌─────> 0x00001377      8b55e8         mov edx, dword [var_18h]
+│   ╎│╎││   0x0000137a      488d45cc       lea rax, [s]
+│   ╎│╎││   0x0000137e      89d6           mov esi, edx                ; int64_t arg2
+│   ╎│╎││   0x00001380      4889c7         mov rdi, rax                ; int64_t arg1
+│   ╎│╎││   0x00001383      e8ea030000     call sym.bit_get
+│   ╎│╎││   0x00001388      89c6           mov esi, eax
+│   ╎│╎││   0x0000138a      8b45ec         mov eax, dword [var_14h]
+│   ╎│╎││   0x0000138d      4863d0         movsxd rdx, eax
+│   ╎│╎││   0x00001390      4889d0         mov rax, rdx
+│   ╎│╎││   0x00001393      48c1e003       shl rax, 3
+│   ╎│╎││   0x00001397      4829d0         sub rax, rdx
+│   ╎│╎││   0x0000139a      488d15bf3c..   lea rdx, obj.subkeys.0      ; 0x5060
+│   ╎│╎││   0x000013a1      488d0c10       lea rcx, [rax + rdx]
+│   ╎│╎││   0x000013a5      8b45e8         mov eax, dword [var_18h]
+│   ╎│╎││   0x000013a8      89f2           mov edx, esi                ; uint32_t arg3
+│   ╎│╎││   0x000013aa      89c6           mov esi, eax                ; int64_t arg2
+│   ╎│╎││   0x000013ac      4889cf         mov rdi, rcx                ; int64_t arg1
+│   ╎│╎││   0x000013af      e81f040000     call sym.bit_set
+│   ╎│╎││   0x000013b4      8345e801       add dword [var_18h], 1
+│   ╎│╎││   ; CODE XREF from sym.des_main @ 0x1375(x)
+│   ╎└────> 0x000013b8      837de81b       cmp dword [var_18h], 0x1b
+│   └─────< 0x000013bc      7eb9           jle 0x1377
+│     ╎││   0x000013be      c745e80000..   mov dword [var_18h], 0
+│    ┌────< 0x000013c5      eb43           jmp 0x140a
+│    │╎││   ; CODE XREF from sym.des_main @ 0x140e(x)
+│   ┌─────> 0x000013c7      8b55e8         mov edx, dword [var_18h]
+│   ╎│╎││   0x000013ca      488d45c8       lea rax, [var_38h]
+│   ╎│╎││   0x000013ce      89d6           mov esi, edx                ; int64_t arg2
+│   ╎│╎││   0x000013d0      4889c7         mov rdi, rax                ; int64_t arg1
+│   ╎│╎││   0x000013d3      e89a030000     call sym.bit_get
+│   ╎│╎││   0x000013d8      89c6           mov esi, eax
+│   ╎│╎││   0x000013da      8b45e8         mov eax, dword [var_18h]
+│   ╎│╎││   0x000013dd      8d481c         lea ecx, [rax + 0x1c]
+│   ╎│╎││   0x000013e0      8b45ec         mov eax, dword [var_14h]
+│   ╎│╎││   0x000013e3      4863d0         movsxd rdx, eax
+│   ╎│╎││   0x000013e6      4889d0         mov rax, rdx
+│   ╎│╎││   0x000013e9      48c1e003       shl rax, 3
+│   ╎│╎││   0x000013ed      4829d0         sub rax, rdx
+│   ╎│╎││   0x000013f0      488d15693c..   lea rdx, obj.subkeys.0      ; 0x5060
+│   ╎│╎││   0x000013f7      4801d0         add rax, rdx
+│   ╎│╎││   0x000013fa      89f2           mov edx, esi                ; uint32_t arg3
+│   ╎│╎││   0x000013fc      89ce           mov esi, ecx                ; int64_t arg2
+│   ╎│╎││   0x000013fe      4889c7         mov rdi, rax                ; int64_t arg1
+│   ╎│╎││   0x00001401      e8cd030000     call sym.bit_set
+│   ╎│╎││   0x00001406      8345e801       add dword [var_18h], 1
+│   ╎│╎││   ; CODE XREF from sym.des_main @ 0x13c5(x)
+│   ╎└────> 0x0000140a      837de81b       cmp dword [var_18h], 0x1b
+│   └─────< 0x0000140e      7eb7           jle 0x13c7
+│     ╎││   0x00001410      8b45ec         mov eax, dword [var_14h]
+│     ╎││   0x00001413      4863d0         movsxd rdx, eax
+│     ╎││   0x00001416      4889d0         mov rax, rdx
+│     ╎││   0x00001419      48c1e003       shl rax, 3
+│     ╎││   0x0000141d      4829d0         sub rax, rdx
+│     ╎││   0x00001420      488d15393c..   lea rdx, obj.subkeys.0      ; 0x5060
+│     ╎││   0x00001427      4801d0         add rax, rdx
+│     ╎││   0x0000142a      ba30000000     mov edx, 0x30               ; '0' ; int64_t arg3
+│     ╎││   0x0000142f      488d0d0a0d..   lea rcx, obj.DesPermuted    ; 0x2140
+│     ╎││   0x00001436      4889ce         mov rsi, rcx                ; int64_t arg2
+│     ╎││   0x00001439      4889c7         mov rdi, rax                ; int64_t arg1
+│     ╎││   0x0000143c      e828fdffff     call sym.permute
+│     ╎││   0x00001441      8345ec01       add dword [var_14h], 1
+│     ╎││   ; CODE XREF from sym.des_main @ 0x1319(x)
+│     ╎└──> 0x00001445      837dec0f       cmp dword [var_14h], 0xf
+│     └───< 0x00001449      0f8ecffeffff   jle 0x131e
+│       │   ; CODE XREF from sym.des_main @ 0x1249(x)
+│       └─> 0x0000144f      488b4598       mov rax, qword [var_68h]
+│           0x00001453      488b00         mov rax, qword [rax]
+│           0x00001456      488945d0       mov qword [var_30h], rax
+│           0x0000145a      488d45d0       lea rax, [var_30h]
+│           0x0000145e      ba40000000     mov edx, 0x40               ; elf_phdr ; int64_t arg3
+│           0x00001463      488d0d960d..   lea rcx, obj.DesInitial     ; 0x2200 ; U":2*\"\x1a\x12\n\x02<4,$\x1c\x14\f\x04>6.&\x1e\x16\x0e\x06@80( \x18\x10\b91)!\x19\x11\t\x01;3+#\x1b\x13\v\x03=5-%\x1d\x15\r\x05?7/'\x1f\x17\x0f\a \x01\x02\x03\x04\x05\x04\x05\x06\a\b\t\b\t\n\v\f\r\f\r\x0e\x0f\x10\x11\x10\x11\x12\x13\x14\x15\x14\x15\x16\x17\x18\x19\x18\x19\x1a\x1b\x1c\x1d\x1c\x1d\x1e\x1f \x01\x0e\x04\r\x01\x02\x0f\v\b\x03\n\x06\f\x05\t"
+│           0x0000146a      4889ce         mov rsi, rcx                ; int64_t arg2
+│           0x0000146d      4889c7         mov rdi, rax                ; int64_t arg1
+│           0x00001470      e8f4fcffff     call sym.permute
+│           0x00001475      8b45d0         mov eax, dword [var_30h]
+│           0x00001478      8945c2         mov dword [var_3eh], eax
+│           0x0000147b      8b45d4         mov eax, dword [var_2ch]
+│           0x0000147e      8945bc         mov dword [var_44h], eax
+│           0x00001481      c745ec0000..   mov dword [var_14h], 0
+│       ┌─< 0x00001488      e93f020000     jmp 0x16cc
+│       │   ; CODE XREF from sym.des_main @ 0x16d0(x)
+│      ┌──> 0x0000148d      8b45bc         mov eax, dword [var_44h]
+│      ╎│   0x00001490      8945b6         mov dword [var_4ah], eax
+│      ╎│   0x00001493      488d45b6       lea rax, [var_4ah]
+│      ╎│   0x00001497      ba30000000     mov edx, 0x30               ; '0' ; int64_t arg3
+│      ╎│   0x0000149c      488d0d5d0e..   lea rcx, obj.DesExpansion   ; 0x2300 ; U" \x01\x02\x03\x04\x05\x04\x05\x06\a\b\t\b\t\n\v\f\r\f\r\x0e\x0f\x10\x11\x10\x11\x12\x13\x14\x15\x14\x15\x16\x17\x18\x19\x18\x19\x1a\x1b\x1c\x1d\x1c\x1d\x1e\x1f \x01\x0e\x04\r\x01\x02\x0f\v\b\x03\n\x06\f\x05\t"
+│      ╎│   0x000014a3      4889ce         mov rsi, rcx                ; int64_t arg2
+│      ╎│   0x000014a6      4889c7         mov rdi, rax                ; int64_t arg1
+│      ╎│   0x000014a9      e8bbfcffff     call sym.permute
+│      ╎│   0x000014ae      837d8400       cmp dword [var_7ch], 0
+│     ┌───< 0x000014b2      7540           jne 0x14f4
+│     │╎│   0x000014b4      8b45ec         mov eax, dword [var_14h]
+│     │╎│   0x000014b7      4863d0         movsxd rdx, eax
+│     │╎│   0x000014ba      4889d0         mov rax, rdx
+│     │╎│   0x000014bd      48c1e003       shl rax, 3
+│     │╎│   0x000014c1      4829d0         sub rax, rdx
+│     │╎│   0x000014c4      488d15953b..   lea rdx, obj.subkeys.0      ; 0x5060
+│     │╎│   0x000014cb      488d3410       lea rsi, [rax + rdx]        ; int64_t arg2
+│     │╎│   0x000014cf      488d55b0       lea rdx, [var_50h]          ; int64_t arg3
+│     │╎│   0x000014d3      488d45b6       lea rax, [var_4ah]
+│     │╎│   0x000014d7      b930000000     mov ecx, 0x30               ; '0' ; signed int64_t arg4
+│     │╎│   0x000014dc      4889c7         mov rdi, rax                ; int64_t arg1
+│     │╎│   0x000014df      e8b2030000     call sym.bit_xor
+│     │╎│   0x000014e4      8b45b0         mov eax, dword [var_50h]
+│     │╎│   0x000014e7      8945b6         mov dword [var_4ah], eax
+│     │╎│   0x000014ea      0fb745b4       movzx eax, word [var_4ch]
+│     │╎│   0x000014ee      668945ba       mov word [var_46h], ax
+│    ┌────< 0x000014f2      eb43           jmp 0x1537
+│    ││╎│   ; CODE XREF from sym.des_main @ 0x14b2(x)
+│    │└───> 0x000014f4      b80f000000     mov eax, 0xf
+│    │ ╎│   0x000014f9      2b45ec         sub eax, dword [var_14h]
+│    │ ╎│   0x000014fc      4863d0         movsxd rdx, eax
+│    │ ╎│   0x000014ff      4889d0         mov rax, rdx
+│    │ ╎│   0x00001502      48c1e003       shl rax, 3
+│    │ ╎│   0x00001506      4829d0         sub rax, rdx
+│    │ ╎│   0x00001509      488d15503b..   lea rdx, obj.subkeys.0      ; 0x5060
+│    │ ╎│   0x00001510      488d3410       lea rsi, [rax + rdx]        ; int64_t arg2
+│    │ ╎│   0x00001514      488d55b0       lea rdx, [var_50h]          ; int64_t arg3
+│    │ ╎│   0x00001518      488d45b6       lea rax, [var_4ah]
+│    │ ╎│   0x0000151c      b930000000     mov ecx, 0x30               ; '0' ; signed int64_t arg4
+│    │ ╎│   0x00001521      4889c7         mov rdi, rax                ; int64_t arg1
+│    │ ╎│   0x00001524      e86d030000     call sym.bit_xor
+│    │ ╎│   0x00001529      8b45b0         mov eax, dword [var_50h]
+│    │ ╎│   0x0000152c      8945b6         mov dword [var_4ah], eax
+│    │ ╎│   0x0000152f      0fb745b4       movzx eax, word [var_4ch]
+│    │ ╎│   0x00001533      668945ba       mov word [var_46h], ax
+│    │ ╎│   ; CODE XREF from sym.des_main @ 0x14f2(x)
+│    └────> 0x00001537      c745e00000..   mov dword [var_20h], 0
+│      ╎│   0x0000153e      c745e80000..   mov dword [var_18h], 0
+│     ┌───< 0x00001545      e934010000     jmp 0x167e
+│     │╎│   ; CODE XREF from sym.des_main @ 0x1682(x)
+│    ┌────> 0x0000154a      8b55e8         mov edx, dword [var_18h]
+│    ╎│╎│   0x0000154d      89d0           mov eax, edx
+│    ╎│╎│   0x0000154f      01c0           add eax, eax
+│    ╎│╎│   0x00001551      01d0           add eax, edx
+│    ╎│╎│   0x00001553      01c0           add eax, eax
+│    ╎│╎│   0x00001555      89c2           mov edx, eax
+│    ╎│╎│   0x00001557      488d45b6       lea rax, [var_4ah]
+│    ╎│╎│   0x0000155b      89d6           mov esi, edx                ; int64_t arg2
+│    ╎│╎│   0x0000155d      4889c7         mov rdi, rax                ; int64_t arg1
+│    ╎│╎│   0x00001560      e80d020000     call sym.bit_get
+│    ╎│╎│   0x00001565      8d1c00         lea ebx, [rax + rax]
+│    ╎│╎│   0x00001568      8b55e8         mov edx, dword [var_18h]
+│    ╎│╎│   0x0000156b      89d0           mov eax, edx
+│    ╎│╎│   0x0000156d      01c0           add eax, eax
+│    ╎│╎│   0x0000156f      01d0           add eax, edx
+│    ╎│╎│   0x00001571      01c0           add eax, eax
+│    ╎│╎│   0x00001573      8d5005         lea edx, [rax + 5]
+│    ╎│╎│   0x00001576      488d45b6       lea rax, [var_4ah]
+│    ╎│╎│   0x0000157a      89d6           mov esi, edx                ; int64_t arg2
+│    ╎│╎│   0x0000157c      4889c7         mov rdi, rax                ; int64_t arg1
+│    ╎│╎│   0x0000157f      e8ee010000     call sym.bit_get
+│    ╎│╎│   0x00001584      01d8           add eax, ebx
+│    ╎│╎│   0x00001586      8945dc         mov dword [var_24h], eax
+│    ╎│╎│   0x00001589      8b55e8         mov edx, dword [var_18h]
+│    ╎│╎│   0x0000158c      89d0           mov eax, edx
+│    ╎│╎│   0x0000158e      01c0           add eax, eax
+│    ╎│╎│   0x00001590      01d0           add eax, edx
+│    ╎│╎│   0x00001592      01c0           add eax, eax
+│    ╎│╎│   0x00001594      8d5001         lea edx, [rax + 1]
+│    ╎│╎│   0x00001597      488d45b6       lea rax, [var_4ah]
+│    ╎│╎│   0x0000159b      89d6           mov esi, edx                ; int64_t arg2
+│    ╎│╎│   0x0000159d      4889c7         mov rdi, rax                ; int64_t arg1
+│    ╎│╎│   0x000015a0      e8cd010000     call sym.bit_get
+│    ╎│╎│   0x000015a5      8d1c00         lea ebx, [rax + rax]
+│    ╎│╎│   0x000015a8      8b55e8         mov edx, dword [var_18h]
+│    ╎│╎│   0x000015ab      89d0           mov eax, edx
+│    ╎│╎│   0x000015ad      01c0           add eax, eax
+│    ╎│╎│   0x000015af      01d0           add eax, edx
+│    ╎│╎│   0x000015b1      01c0           add eax, eax
+│    ╎│╎│   0x000015b3      8d5002         lea edx, [rax + 2]
+│    ╎│╎│   0x000015b6      488d45b6       lea rax, [var_4ah]
+│    ╎│╎│   0x000015ba      89d6           mov esi, edx                ; int64_t arg2
+│    ╎│╎│   0x000015bc      4889c7         mov rdi, rax                ; int64_t arg1
+│    ╎│╎│   0x000015bf      e8ae010000     call sym.bit_get
+│    ╎│╎│   0x000015c4      01d8           add eax, ebx
+│    ╎│╎│   0x000015c6      8d1c00         lea ebx, [rax + rax]
+│    ╎│╎│   0x000015c9      8b55e8         mov edx, dword [var_18h]
+│    ╎│╎│   0x000015cc      89d0           mov eax, edx
+│    ╎│╎│   0x000015ce      01c0           add eax, eax
+│    ╎│╎│   0x000015d0      01d0           add eax, edx
+│    ╎│╎│   0x000015d2      01c0           add eax, eax
+│    ╎│╎│   0x000015d4      8d5003         lea edx, [rax + 3]
+│    ╎│╎│   0x000015d7      488d45b6       lea rax, [var_4ah]
+│    ╎│╎│   0x000015db      89d6           mov esi, edx                ; int64_t arg2
+│    ╎│╎│   0x000015dd      4889c7         mov rdi, rax                ; int64_t arg1
+│    ╎│╎│   0x000015e0      e88d010000     call sym.bit_get
+│    ╎│╎│   0x000015e5      01d8           add eax, ebx
+│    ╎│╎│   0x000015e7      8d1c00         lea ebx, [rax + rax]
+│    ╎│╎│   0x000015ea      8b55e8         mov edx, dword [var_18h]
+│    ╎│╎│   0x000015ed      89d0           mov eax, edx
+│    ╎│╎│   0x000015ef      01c0           add eax, eax
+│    ╎│╎│   0x000015f1      01d0           add eax, edx
+│    ╎│╎│   0x000015f3      01c0           add eax, eax
+│    ╎│╎│   0x000015f5      8d5004         lea edx, [rax + 4]
+│    ╎│╎│   0x000015f8      488d45b6       lea rax, [var_4ah]
+│    ╎│╎│   0x000015fc      89d6           mov esi, edx                ; int64_t arg2
+│    ╎│╎│   0x000015fe      4889c7         mov rdi, rax                ; int64_t arg1
+│    ╎│╎│   0x00001601      e86c010000     call sym.bit_get
+│    ╎│╎│   0x00001606      01d8           add eax, ebx
+│    ╎│╎│   0x00001608      8945d8         mov dword [var_28h], eax
+│    ╎│╎│   0x0000160b      8b45d8         mov eax, dword [var_28h]
+│    ╎│╎│   0x0000160e      4898           cdqe
+│    ╎│╎│   0x00001610      8b55e8         mov edx, dword [var_18h]
+│    ╎│╎│   0x00001613      4863ca         movsxd rcx, edx
+│    ╎│╎│   0x00001616      8b55dc         mov edx, dword [var_24h]
+│    ╎│╎│   0x00001619      4863d2         movsxd rdx, edx
+│    ╎│╎│   0x0000161c      48c1e102       shl rcx, 2
+│    ╎│╎│   0x00001620      4801ca         add rdx, rcx
+│    ╎│╎│   0x00001623      48c1e204       shl rdx, 4
+│    ╎│╎│   0x00001627      4801d0         add rax, rdx
+│    ╎│╎│   0x0000162a      488d148500..   lea rdx, [rax*4]
+│    ╎│╎│   0x00001632      488d05870d..   lea rax, obj.DesSbox        ; 0x23c0
+│    ╎│╎│   0x00001639      8b0402         mov eax, dword [rdx + rax]
+│    ╎│╎│   0x0000163c      8845af         mov byte [var_51h], al
+│    ╎│╎│   0x0000163f      c745e40400..   mov dword [var_1ch], 4
+│   ┌─────< 0x00001646      eb2c           jmp 0x1674
+│   │╎│╎│   ; CODE XREF from sym.des_main @ 0x1678(x)
+│  ┌──────> 0x00001648      8b55e4         mov edx, dword [var_1ch]
+│  ╎│╎│╎│   0x0000164b      488d45af       lea rax, [var_51h]
+│  ╎│╎│╎│   0x0000164f      89d6           mov esi, edx                ; int64_t arg2
+│  ╎│╎│╎│   0x00001651      4889c7         mov rdi, rax                ; int64_t arg1
+│  ╎│╎│╎│   0x00001654      e819010000     call sym.bit_get
+│  ╎│╎│╎│   0x00001659      89c2           mov edx, eax                ; uint32_t arg3
+│  ╎│╎│╎│   0x0000165b      8b4de0         mov ecx, dword [var_20h]
+│  ╎│╎│╎│   0x0000165e      488d45b6       lea rax, [var_4ah]
+│  ╎│╎│╎│   0x00001662      89ce           mov esi, ecx                ; int64_t arg2
+│  ╎│╎│╎│   0x00001664      4889c7         mov rdi, rax                ; int64_t arg1
+│  ╎│╎│╎│   0x00001667      e867010000     call sym.bit_set
+│  ╎│╎│╎│   0x0000166c      8345e001       add dword [var_20h], 1
+│  ╎│╎│╎│   0x00001670      8345e401       add dword [var_1ch], 1
+│  ╎│╎│╎│   ; CODE XREF from sym.des_main @ 0x1646(x)
+│  ╎└─────> 0x00001674      837de407       cmp dword [var_1ch], 7
+│  └──────< 0x00001678      7ece           jle 0x1648
+│    ╎│╎│   0x0000167a      8345e801       add dword [var_18h], 1
+│    ╎│╎│   ; CODE XREF from sym.des_main @ 0x1545(x)
+│    ╎└───> 0x0000167e      837de807       cmp dword [var_18h], 7
+│    └────< 0x00001682      0f8ec2feffff   jle 0x154a
+│      ╎│   0x00001688      488d45b6       lea rax, [var_4ah]
+│      ╎│   0x0000168c      ba20000000     mov edx, 0x20               ; "@" ; int64_t arg3
+│      ╎│   0x00001691      488d0d2815..   lea rcx, obj.DesPbox        ; 0x2bc0
+│      ╎│   0x00001698      4889ce         mov rsi, rcx                ; int64_t arg2
+│      ╎│   0x0000169b      4889c7         mov rdi, rax                ; int64_t arg1
+│      ╎│   0x0000169e      e8c6faffff     call sym.permute
+│      ╎│   0x000016a3      488d55b0       lea rdx, [var_50h]          ; int64_t arg3
+│      ╎│   0x000016a7      488d75b6       lea rsi, [var_4ah]          ; int64_t arg2
+│      ╎│   0x000016ab      488d45c2       lea rax, [var_3eh]
+│      ╎│   0x000016af      b920000000     mov ecx, 0x20               ; "@" ; signed int64_t arg4
+│      ╎│   0x000016b4      4889c7         mov rdi, rax                ; int64_t arg1
+│      ╎│   0x000016b7      e8da010000     call sym.bit_xor
+│      ╎│   0x000016bc      8b45bc         mov eax, dword [var_44h]
+│      ╎│   0x000016bf      8945c2         mov dword [var_3eh], eax
+│      ╎│   0x000016c2      8b45b0         mov eax, dword [var_50h]
+│      ╎│   0x000016c5      8945bc         mov dword [var_44h], eax
+│      ╎│   0x000016c8      8345ec01       add dword [var_14h], 1
+│      ╎│   ; CODE XREF from sym.des_main @ 0x1488(x)
+│      ╎└─> 0x000016cc      837dec0f       cmp dword [var_14h], 0xf
+│      └──< 0x000016d0      0f8eb7fdffff   jle 0x148d
+│           0x000016d6      8b55bc         mov edx, dword [var_44h]
+│           0x000016d9      488b4590       mov rax, qword [var_70h]
+│           0x000016dd      8910           mov dword [rax], edx
+│           0x000016df      488b4590       mov rax, qword [var_70h]
+│           0x000016e3      488d5004       lea rdx, [rax + 4]
+│           0x000016e7      8b45c2         mov eax, dword [var_3eh]
+│           0x000016ea      8902           mov dword [rdx], eax
+│           0x000016ec      488b4590       mov rax, qword [var_70h]
+│           0x000016f0      ba40000000     mov edx, 0x40               ; elf_phdr ; int64_t arg3
+│           0x000016f5      488d0d4415..   lea rcx, obj.DesFinal       ; 0x2c40 ; "("
+│           0x000016fc      4889ce         mov rsi, rcx                ; int64_t arg2
+│           0x000016ff      4889c7         mov rdi, rax                ; int64_t arg1
+│           0x00001702      e862faffff     call sym.permute
+│           0x00001707      b800000000     mov eax, 0
+│           0x0000170c      488b5df8       mov rbx, qword [var_8h]
+│           0x00001710      c9             leave
+└           0x00001711      c3             ret
+            ;-- section..fini:
+┌ 9: sym._fini ();
+│           0x00001e74      4883ec08       sub rsp, 8                  ; [16] -r-x section size 9 named .fini
+│           0x00001e78      4883c408       add rsp, 8
+└           0x00001e7c      c3             ret
+            ; XREFS: CALL 0x000011d5  CALL 0x000012b6  CALL 0x000012f0  
+            ; XREFS: CALL 0x00001383  CALL 0x000013d3  CALL 0x00001560  
+            ; XREFS: CALL 0x0000157f  CALL 0x000015a0  CALL 0x000015bf  
+            ; XREFS: CALL 0x000015e0  CALL 0x00001601  CALL 0x00001654  
+            ; XREFS: CALL 0x000018c3  CALL 0x000018d6  CALL 0x00001966  
+┌ 97: sym.bit_get (void *arg1, signed int64_t arg2);
+│           ; arg void *arg1 @ rdi
+│           ; arg signed int64_t arg2 @ rsi
+│           ; var uint32_t var_1h @ rbp-0x1
+│           ; var signed int64_t var_8h @ rbp-0x8
+│           ; var void *var_18h @ rbp-0x18
+│           ; var signed int64_t var_1ch @ rbp-0x1c
+│           0x00001772      55             push rbp
+│           0x00001773      4889e5         mov rbp, rsp
+│           0x00001776      48897de8       mov qword [var_18h], rdi    ; arg1
+│           0x0000177a      8975e4         mov dword [var_1ch], esi    ; arg2
+│           0x0000177d      c645ff80       mov byte [var_1h], 0x80
+│           0x00001781      c745f80000..   mov dword [var_8h], 0
+│       ┌─< 0x00001788      eb07           jmp 0x1791
+│       │   ; CODE XREF from sym.bit_get @ 0x17a8(x)
+│      ┌──> 0x0000178a      d06dff         shr byte [var_1h], 1
+│      ╎│   0x0000178d      8345f801       add dword [var_8h], 1
+│      ╎│   ; CODE XREF from sym.bit_get @ 0x1788(x)
+│      ╎└─> 0x00001791      8b55e4         mov edx, dword [var_1ch]
+│      ╎    0x00001794      89d0           mov eax, edx
+│      ╎    0x00001796      c1f81f         sar eax, 0x1f
+│      ╎    0x00001799      c1e81d         shr eax, 0x1d
+│      ╎    0x0000179c      01c2           add edx, eax
+│      ╎    0x0000179e      83e207         and edx, 7
+│      ╎    0x000017a1      29c2           sub edx, eax
+│      ╎    0x000017a3      89d0           mov eax, edx
+│      ╎    0x000017a5      3945f8         cmp dword [var_8h], eax
+│      └──< 0x000017a8      7ce0           jl 0x178a
+│           0x000017aa      8b45e4         mov eax, dword [var_1ch]
+│           0x000017ad      8d5007         lea edx, [rax + 7]
+│           0x000017b0      85c0           test eax, eax
+│           0x000017b2      0f48c2         cmovs eax, edx
+│           0x000017b5      c1f803         sar eax, 3
+│           0x000017b8      4863d0         movsxd rdx, eax
+│           0x000017bb      488b45e8       mov rax, qword [var_18h]
+│           0x000017bf      4801d0         add rax, rdx
+│           0x000017c2      0fb600         movzx eax, byte [rax]
+│           0x000017c5      2245ff         and al, byte [var_1h]
+│           0x000017c8      3845ff         cmp byte [var_1h], al
+│           0x000017cb      0f94c0         sete al
+│           0x000017ce      0fb6c0         movzx eax, al
+│           0x000017d1      5d             pop rbp
+└           0x000017d2      c3             ret
+            ; CALL XREFS from sym.des_main @ 0x1341(x), 0x1369(x)
+┌ 233: sym.bit_rot_left (void *arg1, signed int64_t arg2, signed int64_t arg3);
+│           ; arg void *arg1 @ rdi
+│           ; arg signed int64_t arg2 @ rsi
+│           ; arg signed int64_t arg3 @ rdx
+│           ; var int64_t var_4h @ rbp-0x4
+│           ; var signed int var_8h @ rbp-0x8
+│           ; var int64_t var_ch @ rbp-0xc
+│           ; var int64_t var_10h @ rbp-0x10
+│           ; var void *var_18h @ rbp-0x18
+│           ; var signed int64_t var_1ch @ rbp-0x1c
+│           ; var signed int64_t var_20h @ rbp-0x20
+│           0x00001920      55             push rbp
+│           0x00001921      4889e5         mov rbp, rsp
+│           0x00001924      4883ec20       sub rsp, 0x20
+│           0x00001928      48897de8       mov qword [var_18h], rdi    ; arg1
+│           0x0000192c      8975e4         mov dword [var_1ch], esi    ; arg2
+│           0x0000192f      8955e0         mov dword [var_20h], edx    ; arg3
+│           0x00001932      837de400       cmp dword [var_1ch], 0
+│       ┌─< 0x00001936      0f8eca000000   jle 0x1a06
+│       │   0x0000193c      c745f40000..   mov dword [var_ch], 0
+│      ┌──< 0x00001943      e9b1000000     jmp 0x19f9
+│      ││   ; CODE XREF from sym.bit_rot_left @ 0x19ff(x)
+│     ┌───> 0x00001948      c745f80000..   mov dword [var_8h], 0
+│    ┌────< 0x0000194f      eb73           jmp 0x19c4
+│    │╎││   ; CODE XREF from sym.bit_rot_left @ 0x19d8(x)
+│   ┌─────> 0x00001951      8b45f8         mov eax, dword [var_8h]
+│   ╎│╎││   0x00001954      4863d0         movsxd rdx, eax
+│   ╎│╎││   0x00001957      488b45e8       mov rax, qword [var_18h]
+│   ╎│╎││   0x0000195b      4801d0         add rax, rdx
+│   ╎│╎││   0x0000195e      be00000000     mov esi, 0                  ; int64_t arg2
+│   ╎│╎││   0x00001963      4889c7         mov rdi, rax                ; int64_t arg1
+│   ╎│╎││   0x00001966      e807feffff     call sym.bit_get
+│   ╎│╎││   0x0000196b      8945f0         mov dword [var_10h], eax
+│   ╎│╎││   0x0000196e      837df800       cmp dword [var_8h], 0
+│  ┌──────< 0x00001972      7508           jne 0x197c
+│  │╎│╎││   0x00001974      8b45f0         mov eax, dword [var_10h]
+│  │╎│╎││   0x00001977      8945fc         mov dword [var_4h], eax
+│ ┌───────< 0x0000197a      eb23           jmp 0x199f
+│ ││╎│╎││   ; CODE XREF from sym.bit_rot_left @ 0x1972(x)
+│ │└──────> 0x0000197c      8b45f8         mov eax, dword [var_8h]
+│ │ ╎│╎││   0x0000197f      4898           cdqe
+│ │ ╎│╎││   0x00001981      488d50ff       lea rdx, [rax - 1]
+│ │ ╎│╎││   0x00001985      488b45e8       mov rax, qword [var_18h]
+│ │ ╎│╎││   0x00001989      488d0c02       lea rcx, [rdx + rax]
+│ │ ╎│╎││   0x0000198d      8b45f0         mov eax, dword [var_10h]
+│ │ ╎│╎││   0x00001990      89c2           mov edx, eax                ; uint32_t arg3
+│ │ ╎│╎││   0x00001992      be07000000     mov esi, 7                  ; int64_t arg2
+│ │ ╎│╎││   0x00001997      4889cf         mov rdi, rcx                ; int64_t arg1
+│ │ ╎│╎││   0x0000199a      e834feffff     call sym.bit_set
+│ │ ╎│╎││   ; CODE XREF from sym.bit_rot_left @ 0x197a(x)
+│ └───────> 0x0000199f      8b45f8         mov eax, dword [var_8h]
+│   ╎│╎││   0x000019a2      4863d0         movsxd rdx, eax
+│   ╎│╎││   0x000019a5      488b45e8       mov rax, qword [var_18h]
+│   ╎│╎││   0x000019a9      4801d0         add rax, rdx
+│   ╎│╎││   0x000019ac      0fb610         movzx edx, byte [rax]
+│   ╎│╎││   0x000019af      8b45f8         mov eax, dword [var_8h]
+│   ╎│╎││   0x000019b2      4863c8         movsxd rcx, eax
+│   ╎│╎││   0x000019b5      488b45e8       mov rax, qword [var_18h]
+│   ╎│╎││   0x000019b9      4801c8         add rax, rcx
+│   ╎│╎││   0x000019bc      01d2           add edx, edx
+│   ╎│╎││   0x000019be      8810           mov byte [rax], dl
+│   ╎│╎││   0x000019c0      8345f801       add dword [var_8h], 1
+│   ╎│╎││   ; CODE XREF from sym.bit_rot_left @ 0x194f(x)
+│   ╎└────> 0x000019c4      8b45e4         mov eax, dword [var_1ch]
+│   ╎ ╎││   0x000019c7      83e801         sub eax, 1
+│   ╎ ╎││   0x000019ca      8d5007         lea edx, [rax + 7]
+│   ╎ ╎││   0x000019cd      85c0           test eax, eax
+│   ╎ ╎││   0x000019cf      0f48c2         cmovs eax, edx
+│   ╎ ╎││   0x000019d2      c1f803         sar eax, 3
+│   ╎ ╎││   0x000019d5      3945f8         cmp dword [var_8h], eax
+│   └─────< 0x000019d8      0f8e73ffffff   jle 0x1951
+│     ╎││   0x000019de      8b45e4         mov eax, dword [var_1ch]
+│     ╎││   0x000019e1      8d48ff         lea ecx, [rax - 1]
+│     ╎││   0x000019e4      8b55fc         mov edx, dword [var_4h]     ; uint32_t arg3
+│     ╎││   0x000019e7      488b45e8       mov rax, qword [var_18h]
+│     ╎││   0x000019eb      89ce           mov esi, ecx                ; int64_t arg2
+│     ╎││   0x000019ed      4889c7         mov rdi, rax                ; int64_t arg1
+│     ╎││   0x000019f0      e8defdffff     call sym.bit_set
+│     ╎││   0x000019f5      8345f401       add dword [var_ch], 1
+│     ╎││   ; CODE XREF from sym.bit_rot_left @ 0x1943(x)
+│     ╎└──> 0x000019f9      8b45f4         mov eax, dword [var_ch]
+│     ╎ │   0x000019fc      3b45e0         cmp eax, dword [var_20h]
+│     └───< 0x000019ff      0f8c43ffffff   jl 0x1948
+│       │   0x00001a05      90             nop
+│       │   ; CODE XREF from sym.bit_rot_left @ 0x1936(x)
+│       └─> 0x00001a06      90             nop
+│           0x00001a07      c9             leave
+└           0x00001a08      c3             ret
+            ; XREFS: CALL 0x000011e8  CALL 0x000012c9  CALL 0x00001303  
+            ; XREFS: CALL 0x000013af  CALL 0x00001401  CALL 0x00001667  
+            ; XREFS: CALL 0x000018f0  CALL 0x00001908  CALL 0x0000199a  
+            ; XREFS: CALL 0x000019f0  
+┌ 195: sym.bit_set (void *arg1, signed int64_t arg2, uint32_t arg3);
+│           ; arg void *arg1 @ rdi
+│           ; arg signed int64_t arg2 @ rsi
+│           ; arg uint32_t arg3 @ rdx
+│           ; var int64_t var_1h @ rbp-0x1
+│           ; var signed int64_t var_8h @ rbp-0x8
+│           ; var void *var_18h @ rbp-0x18
+│           ; var signed int64_t var_1ch @ rbp-0x1c
+│           ; var uint32_t var_20h @ rbp-0x20
+│           0x000017d3      55             push rbp
+│           0x000017d4      4889e5         mov rbp, rsp
+│           0x000017d7      48897de8       mov qword [var_18h], rdi    ; arg1
+│           0x000017db      8975e4         mov dword [var_1ch], esi    ; arg2
+│           0x000017de      8955e0         mov dword [var_20h], edx    ; arg3
+│           0x000017e1      c645ff80       mov byte [var_1h], 0x80
+│           0x000017e5      c745f80000..   mov dword [var_8h], 0
+│       ┌─< 0x000017ec      eb07           jmp 0x17f5
+│       │   ; CODE XREF from sym.bit_set @ 0x180c(x)
+│      ┌──> 0x000017ee      d06dff         shr byte [var_1h], 1
+│      ╎│   0x000017f1      8345f801       add dword [var_8h], 1
+│      ╎│   ; CODE XREF from sym.bit_set @ 0x17ec(x)
+│      ╎└─> 0x000017f5      8b55e4         mov edx, dword [var_1ch]
+│      ╎    0x000017f8      89d0           mov eax, edx
+│      ╎    0x000017fa      c1f81f         sar eax, 0x1f
+│      ╎    0x000017fd      c1e81d         shr eax, 0x1d
+│      ╎    0x00001800      01c2           add edx, eax
+│      ╎    0x00001802      83e207         and edx, 7
+│      ╎    0x00001805      29c2           sub edx, eax
+│      ╎    0x00001807      89d0           mov eax, edx
+│      ╎    0x00001809      3945f8         cmp dword [var_8h], eax
+│      └──< 0x0000180c      7ce0           jl 0x17ee
+│           0x0000180e      837de000       cmp dword [var_20h], 0
+│       ┌─< 0x00001812      743c           je 0x1850
+│       │   0x00001814      8b45e4         mov eax, dword [var_1ch]
+│       │   0x00001817      8d5007         lea edx, [rax + 7]
+│       │   0x0000181a      85c0           test eax, eax
+│       │   0x0000181c      0f48c2         cmovs eax, edx
+│       │   0x0000181f      c1f803         sar eax, 3
+│       │   0x00001822      4863d0         movsxd rdx, eax
+│       │   0x00001825      488b45e8       mov rax, qword [var_18h]
+│       │   0x00001829      4801d0         add rax, rdx
+│       │   0x0000182c      0fb610         movzx edx, byte [rax]
+│       │   0x0000182f      8b45e4         mov eax, dword [var_1ch]
+│       │   0x00001832      8d4807         lea ecx, [rax + 7]
+│       │   0x00001835      85c0           test eax, eax
+│       │   0x00001837      0f48c1         cmovs eax, ecx
+│       │   0x0000183a      c1f803         sar eax, 3
+│       │   0x0000183d      4863c8         movsxd rcx, eax
+│       │   0x00001840      488b45e8       mov rax, qword [var_18h]
+│       │   0x00001844      4801c1         add rcx, rax
+│       │   0x00001847      89d0           mov eax, edx
+│       │   0x00001849      0a45ff         or al, byte [var_1h]
+│       │   0x0000184c      8801           mov byte [rcx], al
+│      ┌──< 0x0000184e      eb44           jmp 0x1894
+│      ││   ; CODE XREF from sym.bit_set @ 0x1812(x)
+│      │└─> 0x00001850      8b45e4         mov eax, dword [var_1ch]
+│      │    0x00001853      8d5007         lea edx, [rax + 7]
+│      │    0x00001856      85c0           test eax, eax
+│      │    0x00001858      0f48c2         cmovs eax, edx
+│      │    0x0000185b      c1f803         sar eax, 3
+│      │    0x0000185e      4863d0         movsxd rdx, eax
+│      │    0x00001861      488b45e8       mov rax, qword [var_18h]
+│      │    0x00001865      4801d0         add rax, rdx
+│      │    0x00001868      0fb600         movzx eax, byte [rax]
+│      │    0x0000186b      89c2           mov edx, eax
+│      │    0x0000186d      0fb645ff       movzx eax, byte [var_1h]
+│      │    0x00001871      f7d0           not eax
+│      │    0x00001873      89d1           mov ecx, edx
+│      │    0x00001875      21c1           and ecx, eax
+│      │    0x00001877      8b45e4         mov eax, dword [var_1ch]
+│      │    0x0000187a      8d5007         lea edx, [rax + 7]
+│      │    0x0000187d      85c0           test eax, eax
+│      │    0x0000187f      0f48c2         cmovs eax, edx
+│      │    0x00001882      c1f803         sar eax, 3
+│      │    0x00001885      4863d0         movsxd rdx, eax
+│      │    0x00001888      488b45e8       mov rax, qword [var_18h]
+│      │    0x0000188c      4801d0         add rax, rdx
+│      │    0x0000188f      89ca           mov edx, ecx
+│      │    0x00001891      8810           mov byte [rax], dl
+│      │    0x00001893      90             nop
+│      │    ; CODE XREF from sym.bit_set @ 0x184e(x)
+│      └──> 0x00001894      5d             pop rbp
+└           0x00001895      c3             ret
+            ; CALL XREF from main @ 0x1b7e(x)
+┌ 48: sym.des_encipher (int64_t arg1, int64_t arg2, int64_t arg3);
+│           ; arg int64_t arg1 @ rdi
+│           ; arg int64_t arg2 @ rsi
+│           ; arg int64_t arg3 @ rdx
+│           ; var int64_t var_8h @ rbp-0x8
+│           ; var int64_t var_10h @ rbp-0x10
+│           ; var int64_t var_18h @ rbp-0x18
+│           0x00001712      55             push rbp
+│           0x00001713      4889e5         mov rbp, rsp
+│           0x00001716      4883ec20       sub rsp, 0x20
+│           0x0000171a      48897df8       mov qword [var_8h], rdi     ; arg1
+│           0x0000171e      488975f0       mov qword [var_10h], rsi    ; arg2
+│           0x00001722      488955e8       mov qword [var_18h], rdx    ; arg3
+│           0x00001726      488b55e8       mov rdx, qword [var_18h]    ; int64_t arg3
+│           0x0000172a      488b75f0       mov rsi, qword [var_10h]    ; int64_t arg2
+│           0x0000172e      488b45f8       mov rax, qword [var_8h]
+│           0x00001732      b900000000     mov ecx, 0                  ; int64_t arg4
+│           0x00001737      4889c7         mov rdi, rax                ; int64_t arg1
+│           0x0000173a      e8edfaffff     call sym.des_main
+│           0x0000173f      90             nop
+│           0x00001740      c9             leave
+└           0x00001741      c3             ret
+            ; DATA XREF from entry0 @ 0x1094(r)
+┌ 1131: int main (int argc, char **argv);
+│           ; arg int argc @ rdi
+│           ; arg char **argv @ rsi
+│           ; var int64_t var_1h @ rbp-0x1
+│           ; var int64_t var_2h @ rbp-0x2
+│           ; var int64_t var_3h @ rbp-0x3
+│           ; var int64_t var_4h @ rbp-0x4
+│           ; var int64_t var_5h @ rbp-0x5
+│           ; var int64_t var_6h @ rbp-0x6
+│           ; var int64_t var_7h @ rbp-0x7
+│           ; var int64_t var_8h @ rbp-0x8
+│           ; var int64_t var_9h @ rbp-0x9
+│           ; var int64_t var_ah @ rbp-0xa
+│           ; var int64_t var_bh @ rbp-0xb
+│           ; var int64_t var_ch @ rbp-0xc
+│           ; var int64_t var_dh @ rbp-0xd
+│           ; var int64_t var_eh @ rbp-0xe
+│           ; var int64_t var_fh @ rbp-0xf
+│           ; var int64_t var_10h @ rbp-0x10
+│           ; var int64_t var_11h @ rbp-0x11
+│           ; var int64_t var_12h @ rbp-0x12
+│           ; var int64_t var_13h @ rbp-0x13
+│           ; var int64_t var_14h @ rbp-0x14
+│           ; var int64_t var_15h @ rbp-0x15
+│           ; var int64_t var_16h @ rbp-0x16
+│           ; var int64_t var_17h @ rbp-0x17
+│           ; var int64_t var_18h @ rbp-0x18
+│           ; var int64_t var_19h @ rbp-0x19
+│           ; var int64_t var_1ah @ rbp-0x1a
+│           ; var int64_t var_1bh @ rbp-0x1b
+│           ; var int64_t var_1ch @ rbp-0x1c
+│           ; var int64_t var_1dh @ rbp-0x1d
+│           ; var int64_t var_1eh @ rbp-0x1e
+│           ; var int64_t var_1fh @ rbp-0x1f
+│           ; var int64_t var_20h @ rbp-0x20
+│           ; var int64_t var_44h @ rbp-0x44
+│           ; var char **var_50h @ rbp-0x50
+│           0x00001a09      55             push rbp
+│           0x00001a0a      4889e5         mov rbp, rsp
+│           0x00001a0d      4883ec50       sub rsp, 0x50
+│           0x00001a11      897dbc         mov dword [var_44h], edi    ; argc
+│           0x00001a14      488975b0       mov qword [var_50h], rsi    ; argv
+│           0x00001a18      488b052136..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001a1f      4889c1         mov rcx, rax                ; FILE *stream
+│           0x00001a22      ba15000000     mov edx, 0x15               ; size_t nitems
+│           0x00001a27      be01000000     mov esi, 1                  ; size_t size
+│           0x00001a2c      488d050d13..   lea rax, str.Enciphering_with_DES_n ; 0x2d40 ; "Enciphering with DES\n"
+│           0x00001a33      4889c7         mov rdi, rax                ; const void *ptr
+│           0x00001a36      e825f6ffff     call sym.imp.fwrite         ; size_t fwrite(const void *ptr, size_t size, size_t nitems, FILE *stream)
+│           0x00001a3b      c645f8a9       mov byte [var_8h], 0xa9
+│           0x00001a3f      c645f910       mov byte [var_7h], 0x10
+│           0x00001a43      c645fa11       mov byte [var_6h], 0x11
+│           0x00001a47      c645fb38       mov byte [var_5h], 0x38     ; '8'
+│           0x00001a4b      c645fc93       mov byte [var_4h], 0x93
+│           0x00001a4f      c645fdca       mov byte [var_3h], 0xca
+│           0x00001a53      c645feb4       mov byte [var_2h], 0xb4
+│           0x00001a57      c645ffa1       mov byte [var_1h], 0xa1
+│           0x00001a5b      c645e001       mov byte [var_20h], 1
+│           0x00001a5f      c645e11f       mov byte [var_1fh], 0x1f
+│           0x00001a63      c645e201       mov byte [var_1eh], 1
+│           0x00001a67      c645e31f       mov byte [var_1dh], 0x1f
+│           0x00001a6b      c645e401       mov byte [var_1ch], 1
+│           0x00001a6f      c645e50e       mov byte [var_1bh], 0xe
+│           0x00001a73      c645e601       mov byte [var_1ah], 1
+│           0x00001a77      c645e70e       mov byte [var_19h], 0xe
+│           0x00001a7b      488b05be35..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001a82      4889c1         mov rcx, rax                ; FILE *stream
+│           0x00001a85      ba13000000     mov edx, 0x13               ; size_t nitems
+│           0x00001a8a      be01000000     mov esi, 1                  ; size_t size
+│           0x00001a8f      488d05c012..   lea rax, str.Before_enciphering_n ; 0x2d56 ; "Before enciphering\n"
+│           0x00001a96      4889c7         mov rdi, rax                ; const void *ptr
+│           0x00001a99      e8c2f5ffff     call sym.imp.fwrite         ; size_t fwrite(const void *ptr, size_t size, size_t nitems, FILE *stream)
+│           0x00001a9e      0fb645ff       movzx eax, byte [var_1h]
+│           0x00001aa2      440fb6c8       movzx r9d, al
+│           0x00001aa6      0fb645fe       movzx eax, byte [var_2h]
+│           0x00001aaa      440fb6c0       movzx r8d, al
+│           0x00001aae      0fb645fd       movzx eax, byte [var_3h]
+│           0x00001ab2      0fb6f8         movzx edi, al
+│           0x00001ab5      0fb645fc       movzx eax, byte [var_4h]
+│           0x00001ab9      0fb6f0         movzx esi, al
+│           0x00001abc      0fb645fb       movzx eax, byte [var_5h]
+│           0x00001ac0      440fb6d8       movzx r11d, al
+│           0x00001ac4      0fb645fa       movzx eax, byte [var_6h]
+│           0x00001ac8      440fb6d0       movzx r10d, al
+│           0x00001acc      0fb645f9       movzx eax, byte [var_7h]
+│           0x00001ad0      0fb6c8         movzx ecx, al
+│           0x00001ad3      0fb645f8       movzx eax, byte [var_8h]
+│           0x00001ad7      0fb6d0         movzx edx, al
+│           0x00001ada      488b055f35..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001ae1      4151           push r9
+│           0x00001ae3      4150           push r8
+│           0x00001ae5      57             push rdi
+│           0x00001ae6      56             push rsi
+│           0x00001ae7      4589d9         mov r9d, r11d
+│           0x00001aea      4589d0         mov r8d, r10d
+│           0x00001aed      488d357c12..   lea rsi, str.destmp:__02x__02x__02x__02x__02x__02x__02x__02x_n ; 0x2d70 ; "destmp: %02x %02x %02x %02x %02x %02x %02x %02x\n" ; const char *format
+│           0x00001af4      4889c7         mov rdi, rax                ; FILE *stream
+│           0x00001af7      b800000000     mov eax, 0
+│           0x00001afc      e83ff5ffff     call sym.imp.fprintf        ; int fprintf(FILE *stream, const char *format,   ...)
+│           0x00001b01      4883c420       add rsp, 0x20
+│           0x00001b05      0fb645e7       movzx eax, byte [var_19h]
+│           0x00001b09      440fb6c8       movzx r9d, al
+│           0x00001b0d      0fb645e6       movzx eax, byte [var_1ah]
+│           0x00001b11      440fb6c0       movzx r8d, al
+│           0x00001b15      0fb645e5       movzx eax, byte [var_1bh]
+│           0x00001b19      0fb6f8         movzx edi, al
+│           0x00001b1c      0fb645e4       movzx eax, byte [var_1ch]
+│           0x00001b20      0fb6f0         movzx esi, al
+│           0x00001b23      0fb645e3       movzx eax, byte [var_1dh]
+│           0x00001b27      440fb6d8       movzx r11d, al
+│           0x00001b2b      0fb645e2       movzx eax, byte [var_1eh]
+│           0x00001b2f      440fb6d0       movzx r10d, al
+│           0x00001b33      0fb645e1       movzx eax, byte [var_1fh]
+│           0x00001b37      0fb6c8         movzx ecx, al
+│           0x00001b3a      0fb645e0       movzx eax, byte [var_20h]
+│           0x00001b3e      0fb6d0         movzx edx, al
+│           0x00001b41      488b05f834..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001b48      4151           push r9
+│           0x00001b4a      4150           push r8
+│           0x00001b4c      57             push rdi
+│           0x00001b4d      56             push rsi
+│           0x00001b4e      4589d9         mov r9d, r11d
+│           0x00001b51      4589d0         mov r8d, r10d
+│           0x00001b54      488d354d12..   lea rsi, str.deskey:__02x__02x__02x__02x__02x__02x__02x__02x_n ; 0x2da8 ; "deskey: %02x %02x %02x %02x %02x %02x %02x %02x\n" ; const char *format
+│           0x00001b5b      4889c7         mov rdi, rax                ; FILE *stream
+│           0x00001b5e      b800000000     mov eax, 0
+│           0x00001b63      e8d8f4ffff     call sym.imp.fprintf        ; int fprintf(FILE *stream, const char *format,   ...)
+│           0x00001b68      4883c420       add rsp, 0x20
+│           0x00001b6c      488d55e0       lea rdx, [var_20h]          ; int64_t arg3
+│           0x00001b70      488d4de8       lea rcx, [var_18h]
+│           0x00001b74      488d45f8       lea rax, [var_8h]
+│           0x00001b78      4889ce         mov rsi, rcx                ; int64_t arg2
+│           0x00001b7b      4889c7         mov rdi, rax                ; int64_t arg1
+│           0x00001b7e      e88ffbffff     call sym.des_encipher
+│           0x00001b83      488b05b634..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001b8a      4889c1         mov rcx, rax                ; FILE *stream
+│           0x00001b8d      ba12000000     mov edx, 0x12               ; size_t nitems
+│           0x00001b92      be01000000     mov esi, 1                  ; size_t size
+│           0x00001b97      488d053b12..   lea rax, str.After_enciphering_n ; 0x2dd9 ; "After enciphering\n"
+│           0x00001b9e      4889c7         mov rdi, rax                ; const void *ptr
+│           0x00001ba1      e8baf4ffff     call sym.imp.fwrite         ; size_t fwrite(const void *ptr, size_t size, size_t nitems, FILE *stream)
+│           0x00001ba6      0fb645ff       movzx eax, byte [var_1h]
+│           0x00001baa      440fb6c8       movzx r9d, al
+│           0x00001bae      0fb645fe       movzx eax, byte [var_2h]
+│           0x00001bb2      440fb6c0       movzx r8d, al
+│           0x00001bb6      0fb645fd       movzx eax, byte [var_3h]
+│           0x00001bba      0fb6f8         movzx edi, al
+│           0x00001bbd      0fb645fc       movzx eax, byte [var_4h]
+│           0x00001bc1      0fb6f0         movzx esi, al
+│           0x00001bc4      0fb645fb       movzx eax, byte [var_5h]
+│           0x00001bc8      440fb6d8       movzx r11d, al
+│           0x00001bcc      0fb645fa       movzx eax, byte [var_6h]
+│           0x00001bd0      440fb6d0       movzx r10d, al
+│           0x00001bd4      0fb645f9       movzx eax, byte [var_7h]
+│           0x00001bd8      0fb6c8         movzx ecx, al
+│           0x00001bdb      0fb645f8       movzx eax, byte [var_8h]
+│           0x00001bdf      0fb6d0         movzx edx, al
+│           0x00001be2      488b055734..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001be9      4151           push r9
+│           0x00001beb      4150           push r8
+│           0x00001bed      57             push rdi
+│           0x00001bee      56             push rsi
+│           0x00001bef      4589d9         mov r9d, r11d
+│           0x00001bf2      4589d0         mov r8d, r10d
+│           0x00001bf5      488d357411..   lea rsi, str.destmp:__02x__02x__02x__02x__02x__02x__02x__02x_n ; 0x2d70 ; "destmp: %02x %02x %02x %02x %02x %02x %02x %02x\n" ; const char *format
+│           0x00001bfc      4889c7         mov rdi, rax                ; FILE *stream
+│           0x00001bff      b800000000     mov eax, 0
+│           0x00001c04      e837f4ffff     call sym.imp.fprintf        ; int fprintf(FILE *stream, const char *format,   ...)
+│           0x00001c09      4883c420       add rsp, 0x20
+│           0x00001c0d      0fb645ef       movzx eax, byte [var_11h]
+│           0x00001c11      440fb6c8       movzx r9d, al
+│           0x00001c15      0fb645ee       movzx eax, byte [var_12h]
+│           0x00001c19      440fb6c0       movzx r8d, al
+│           0x00001c1d      0fb645ed       movzx eax, byte [var_13h]
+│           0x00001c21      0fb6f8         movzx edi, al
+│           0x00001c24      0fb645ec       movzx eax, byte [var_14h]
+│           0x00001c28      0fb6f0         movzx esi, al
+│           0x00001c2b      0fb645eb       movzx eax, byte [var_15h]
+│           0x00001c2f      440fb6d8       movzx r11d, al
+│           0x00001c33      0fb645ea       movzx eax, byte [var_16h]
+│           0x00001c37      440fb6d0       movzx r10d, al
+│           0x00001c3b      0fb645e9       movzx eax, byte [var_17h]
+│           0x00001c3f      0fb6c8         movzx ecx, al
+│           0x00001c42      0fb645e8       movzx eax, byte [var_18h]
+│           0x00001c46      0fb6d0         movzx edx, al
+│           0x00001c49      488b05f033..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001c50      4151           push r9
+│           0x00001c52      4150           push r8
+│           0x00001c54      57             push rdi
+│           0x00001c55      56             push rsi
+│           0x00001c56      4589d9         mov r9d, r11d
+│           0x00001c59      4589d0         mov r8d, r10d
+│           0x00001c5c      488d358d11..   lea rsi, str.desctx:__02x__02x__02x__02x__02x__02x__02x__02x_n ; 0x2df0 ; "desctx: %02x %02x %02x %02x %02x %02x %02x %02x\n" ; const char *format
+│           0x00001c63      4889c7         mov rdi, rax                ; FILE *stream
+│           0x00001c66      b800000000     mov eax, 0
+│           0x00001c6b      e8d0f3ffff     call sym.imp.fprintf        ; int fprintf(FILE *stream, const char *format,   ...)
+│           0x00001c70      4883c420       add rsp, 0x20
+│           0x00001c74      488b05c533..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001c7b      4889c1         mov rcx, rax                ; FILE *stream
+│           0x00001c7e      ba13000000     mov edx, 0x13               ; size_t nitems
+│           0x00001c83      be01000000     mov esi, 1                  ; size_t size
+│           0x00001c88      488d059211..   lea rax, str.Before_deciphering_n ; 0x2e21 ; "Before deciphering\n"
+│           0x00001c8f      4889c7         mov rdi, rax                ; const void *ptr
+│           0x00001c92      e8c9f3ffff     call sym.imp.fwrite         ; size_t fwrite(const void *ptr, size_t size, size_t nitems, FILE *stream)
+│           0x00001c97      0fb645ef       movzx eax, byte [var_11h]
+│           0x00001c9b      440fb6c8       movzx r9d, al
+│           0x00001c9f      0fb645ee       movzx eax, byte [var_12h]
+│           0x00001ca3      440fb6c0       movzx r8d, al
+│           0x00001ca7      0fb645ed       movzx eax, byte [var_13h]
+│           0x00001cab      0fb6f8         movzx edi, al
+│           0x00001cae      0fb645ec       movzx eax, byte [var_14h]
+│           0x00001cb2      0fb6f0         movzx esi, al
+│           0x00001cb5      0fb645eb       movzx eax, byte [var_15h]
+│           0x00001cb9      440fb6d8       movzx r11d, al
+│           0x00001cbd      0fb645ea       movzx eax, byte [var_16h]
+│           0x00001cc1      440fb6d0       movzx r10d, al
+│           0x00001cc5      0fb645e9       movzx eax, byte [var_17h]
+│           0x00001cc9      0fb6c8         movzx ecx, al
+│           0x00001ccc      0fb645e8       movzx eax, byte [var_18h]
+│           0x00001cd0      0fb6d0         movzx edx, al
+│           0x00001cd3      488b056633..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001cda      4151           push r9
+│           0x00001cdc      4150           push r8
+│           0x00001cde      57             push rdi
+│           0x00001cdf      56             push rsi
+│           0x00001ce0      4589d9         mov r9d, r11d
+│           0x00001ce3      4589d0         mov r8d, r10d
+│           0x00001ce6      488d350311..   lea rsi, str.desctx:__02x__02x__02x__02x__02x__02x__02x__02x_n ; 0x2df0 ; "desctx: %02x %02x %02x %02x %02x %02x %02x %02x\n" ; const char *format
+│           0x00001ced      4889c7         mov rdi, rax                ; FILE *stream
+│           0x00001cf0      b800000000     mov eax, 0
+│           0x00001cf5      e846f3ffff     call sym.imp.fprintf        ; int fprintf(FILE *stream, const char *format,   ...)
+│           0x00001cfa      4883c420       add rsp, 0x20
+│           0x00001cfe      0fb645e7       movzx eax, byte [var_19h]
+│           0x00001d02      440fb6c8       movzx r9d, al
+│           0x00001d06      0fb645e6       movzx eax, byte [var_1ah]
+│           0x00001d0a      440fb6c0       movzx r8d, al
+│           0x00001d0e      0fb645e5       movzx eax, byte [var_1bh]
+│           0x00001d12      0fb6f8         movzx edi, al
+│           0x00001d15      0fb645e4       movzx eax, byte [var_1ch]
+│           0x00001d19      0fb6f0         movzx esi, al
+│           0x00001d1c      0fb645e3       movzx eax, byte [var_1dh]
+│           0x00001d20      440fb6d8       movzx r11d, al
+│           0x00001d24      0fb645e2       movzx eax, byte [var_1eh]
+│           0x00001d28      440fb6d0       movzx r10d, al
+│           0x00001d2c      0fb645e1       movzx eax, byte [var_1fh]
+│           0x00001d30      0fb6c8         movzx ecx, al
+│           0x00001d33      0fb645e0       movzx eax, byte [var_20h]
+│           0x00001d37      0fb6d0         movzx edx, al
+│           0x00001d3a      488b05ff32..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001d41      4151           push r9
+│           0x00001d43      4150           push r8
+│           0x00001d45      57             push rdi
+│           0x00001d46      56             push rsi
+│           0x00001d47      4589d9         mov r9d, r11d
+│           0x00001d4a      4589d0         mov r8d, r10d
+│           0x00001d4d      488d355410..   lea rsi, str.deskey:__02x__02x__02x__02x__02x__02x__02x__02x_n ; 0x2da8 ; "deskey: %02x %02x %02x %02x %02x %02x %02x %02x\n" ; const char *format
+│           0x00001d54      4889c7         mov rdi, rax                ; FILE *stream
+│           0x00001d57      b800000000     mov eax, 0
+│           0x00001d5c      e8dff2ffff     call sym.imp.fprintf        ; int fprintf(FILE *stream, const char *format,   ...)
+│           0x00001d61      4883c420       add rsp, 0x20
+│           0x00001d65      488d55e0       lea rdx, [var_20h]          ; int64_t arg3
+│           0x00001d69      488d4df0       lea rcx, [var_10h]
+│           0x00001d6d      488d45e8       lea rax, [var_18h]
+│           0x00001d71      4889ce         mov rsi, rcx                ; int64_t arg2
+│           0x00001d74      4889c7         mov rdi, rax                ; int64_t arg1
+│           0x00001d77      e8c6f9ffff     call sym.des_decipher
+│           0x00001d7c      488b05bd32..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001d83      4889c1         mov rcx, rax                ; FILE *stream
+│           0x00001d86      ba12000000     mov edx, 0x12               ; size_t nitems
+│           0x00001d8b      be01000000     mov esi, 1                  ; size_t size
+│           0x00001d90      488d059e10..   lea rax, str.After_deciphering_n ; 0x2e35 ; "After deciphering\n"
+│           0x00001d97      4889c7         mov rdi, rax                ; const void *ptr
+│           0x00001d9a      e8c1f2ffff     call sym.imp.fwrite         ; size_t fwrite(const void *ptr, size_t size, size_t nitems, FILE *stream)
+│           0x00001d9f      0fb645ef       movzx eax, byte [var_11h]
+│           0x00001da3      440fb6c8       movzx r9d, al
+│           0x00001da7      0fb645ee       movzx eax, byte [var_12h]
+│           0x00001dab      440fb6c0       movzx r8d, al
+│           0x00001daf      0fb645ed       movzx eax, byte [var_13h]
+│           0x00001db3      0fb6f8         movzx edi, al
+│           0x00001db6      0fb645ec       movzx eax, byte [var_14h]
+│           0x00001dba      0fb6f0         movzx esi, al
+│           0x00001dbd      0fb645eb       movzx eax, byte [var_15h]
+│           0x00001dc1      440fb6d8       movzx r11d, al
+│           0x00001dc5      0fb645ea       movzx eax, byte [var_16h]
+│           0x00001dc9      440fb6d0       movzx r10d, al
+│           0x00001dcd      0fb645e9       movzx eax, byte [var_17h]
+│           0x00001dd1      0fb6c8         movzx ecx, al
+│           0x00001dd4      0fb645e8       movzx eax, byte [var_18h]
+│           0x00001dd8      0fb6d0         movzx edx, al
+│           0x00001ddb      488b055e32..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001de2      4151           push r9
+│           0x00001de4      4150           push r8
+│           0x00001de6      57             push rdi
+│           0x00001de7      56             push rsi
+│           0x00001de8      4589d9         mov r9d, r11d
+│           0x00001deb      4589d0         mov r8d, r10d
+│           0x00001dee      488d35fb0f..   lea rsi, str.desctx:__02x__02x__02x__02x__02x__02x__02x__02x_n ; 0x2df0 ; "desctx: %02x %02x %02x %02x %02x %02x %02x %02x\n" ; const char *format
+│           0x00001df5      4889c7         mov rdi, rax                ; FILE *stream
+│           0x00001df8      b800000000     mov eax, 0
+│           0x00001dfd      e83ef2ffff     call sym.imp.fprintf        ; int fprintf(FILE *stream, const char *format,   ...)
+│           0x00001e02      4883c420       add rsp, 0x20
+│           0x00001e06      0fb645f7       movzx eax, byte [var_9h]
+│           0x00001e0a      440fb6c8       movzx r9d, al
+│           0x00001e0e      0fb645f6       movzx eax, byte [var_ah]
+│           0x00001e12      440fb6c0       movzx r8d, al
+│           0x00001e16      0fb645f5       movzx eax, byte [var_bh]
+│           0x00001e1a      0fb6f8         movzx edi, al
+│           0x00001e1d      0fb645f4       movzx eax, byte [var_ch]
+│           0x00001e21      0fb6f0         movzx esi, al
+│           0x00001e24      0fb645f3       movzx eax, byte [var_dh]
+│           0x00001e28      440fb6d8       movzx r11d, al
+│           0x00001e2c      0fb645f2       movzx eax, byte [var_eh]
+│           0x00001e30      440fb6d0       movzx r10d, al
+│           0x00001e34      0fb645f1       movzx eax, byte [var_fh]
+│           0x00001e38      0fb6c8         movzx ecx, al
+│           0x00001e3b      0fb645f0       movzx eax, byte [var_10h]
+│           0x00001e3f      0fb6d0         movzx edx, al
+│           0x00001e42      488b05f731..   mov rax, qword [obj.stdout] ; obj.stdout_GLIBC_2.2.5
+│                                                                      ; [0x5040:8]=0
+│           0x00001e49      4151           push r9
+│           0x00001e4b      4150           push r8
+│           0x00001e4d      57             push rdi
+│           0x00001e4e      56             push rsi
+│           0x00001e4f      4589d9         mov r9d, r11d
+│           0x00001e52      4589d0         mov r8d, r10d
+│           0x00001e55      488d35ec0f..   lea rsi, str.desptx:__02x__02x__02x__02x__02x__02x__02x__02x_n ; 0x2e48 ; "desptx: %02x %02x %02x %02x %02x %02x %02x %02x\n" ; const char *format
+│           0x00001e5c      4889c7         mov rdi, rax                ; FILE *stream
+│           0x00001e5f      b800000000     mov eax, 0
+│           0x00001e64      e8d7f1ffff     call sym.imp.fprintf        ; int fprintf(FILE *stream, const char *format,   ...)
+│           0x00001e69      4883c420       add rsp, 0x20
+│           0x00001e6d      b800000000     mov eax, 0
+│           0x00001e72      c9             leave
+└           0x00001e73      c3             ret
+            ; CALL XREF from main @ 0x1d77(x)
+┌ 48: sym.des_decipher (int64_t arg1, int64_t arg2, int64_t arg3);
+│           ; arg int64_t arg1 @ rdi
+│           ; arg int64_t arg2 @ rsi
+│           ; arg int64_t arg3 @ rdx
+│           ; var int64_t var_8h @ rbp-0x8
+│           ; var int64_t var_10h @ rbp-0x10
+│           ; var int64_t var_18h @ rbp-0x18
+│           0x00001742      55             push rbp
+│           0x00001743      4889e5         mov rbp, rsp
+│           0x00001746      4883ec20       sub rsp, 0x20
+│           0x0000174a      48897df8       mov qword [var_8h], rdi     ; arg1
+│           0x0000174e      488975f0       mov qword [var_10h], rsi    ; arg2
+│           0x00001752      488955e8       mov qword [var_18h], rdx    ; arg3
+│           0x00001756      488b55e8       mov rdx, qword [var_18h]    ; int64_t arg3
+│           0x0000175a      488b75f0       mov rsi, qword [var_10h]    ; int64_t arg2
+│           0x0000175e      488b45f8       mov rax, qword [var_8h]
+│           0x00001762      b901000000     mov ecx, 1                  ; int64_t arg4
+│           0x00001767      4889c7         mov rdi, rax                ; int64_t arg1
+│           0x0000176a      e8bdfaffff     call sym.des_main
+│           0x0000176f      90             nop
+│           0x00001770      c9             leave
+└           0x00001771      c3             ret
+            ; CALL XREFS from sym.des_main @ 0x14df(x), 0x1524(x), 0x16b7(x)
+┌ 138: sym.bit_xor (int64_t arg1, int64_t arg2, int64_t arg3, signed int64_t arg4);
+│           ; arg int64_t arg1 @ rdi
+│           ; arg int64_t arg2 @ rsi
+│           ; arg int64_t arg3 @ rdx
+│           ; arg signed int64_t arg4 @ rcx
+│           ; var int64_t var_8h @ rbp-0x8
+│           ; var int64_t var_ch @ rbp-0xc
+│           ; var int64_t var_20h @ rbp-0x20
+│           ; var int64_t var_28h @ rbp-0x28
+│           ; var int64_t var_30h @ rbp-0x30
+│           ; var signed int64_t var_34h @ rbp-0x34
+│           0x00001896      55             push rbp
+│           0x00001897      4889e5         mov rbp, rsp
+│           0x0000189a      53             push rbx
+│           0x0000189b      4883ec30       sub rsp, 0x30
+│           0x0000189f      48897de0       mov qword [var_20h], rdi    ; arg1
+│           0x000018a3      488975d8       mov qword [var_28h], rsi    ; arg2
+│           0x000018a7      488955d0       mov qword [var_30h], rdx    ; arg3
+│           0x000018ab      894dcc         mov dword [var_34h], ecx    ; arg4
+│           0x000018ae      c745f40000..   mov dword [var_ch], 0
+│       ┌─< 0x000018b5      eb5a           jmp 0x1911
+│       │   ; CODE XREF from sym.bit_xor @ 0x1917(x)
+│      ┌──> 0x000018b7      8b55f4         mov edx, dword [var_ch]
+│      ╎│   0x000018ba      488b45e0       mov rax, qword [var_20h]
+│      ╎│   0x000018be      89d6           mov esi, edx                ; int64_t arg2
+│      ╎│   0x000018c0      4889c7         mov rdi, rax                ; int64_t arg1
+│      ╎│   0x000018c3      e8aafeffff     call sym.bit_get
+│      ╎│   0x000018c8      89c3           mov ebx, eax
+│      ╎│   0x000018ca      8b55f4         mov edx, dword [var_ch]
+│      ╎│   0x000018cd      488b45d8       mov rax, qword [var_28h]
+│      ╎│   0x000018d1      89d6           mov esi, edx                ; int64_t arg2
+│      ╎│   0x000018d3      4889c7         mov rdi, rax                ; int64_t arg1
+│      ╎│   0x000018d6      e897feffff     call sym.bit_get
+│      ╎│   0x000018db      39c3           cmp ebx, eax
+│     ┌───< 0x000018dd      7418           je 0x18f7
+│     │╎│   0x000018df      8b4df4         mov ecx, dword [var_ch]
+│     │╎│   0x000018e2      488b45d0       mov rax, qword [var_30h]
+│     │╎│   0x000018e6      ba01000000     mov edx, 1                  ; int64_t arg3
+│     │╎│   0x000018eb      89ce           mov esi, ecx                ; int64_t arg2
+│     │╎│   0x000018ed      4889c7         mov rdi, rax                ; int64_t arg1
+│     │╎│   0x000018f0      e8defeffff     call sym.bit_set
+│    ┌────< 0x000018f5      eb16           jmp 0x190d
+│    ││╎│   ; CODE XREF from sym.bit_xor @ 0x18dd(x)
+│    │└───> 0x000018f7      8b4df4         mov ecx, dword [var_ch]
+│    │ ╎│   0x000018fa      488b45d0       mov rax, qword [var_30h]
+│    │ ╎│   0x000018fe      ba00000000     mov edx, 0                  ; int64_t arg3
+│    │ ╎│   0x00001903      89ce           mov esi, ecx                ; int64_t arg2
+│    │ ╎│   0x00001905      4889c7         mov rdi, rax                ; int64_t arg1
+│    │ ╎│   0x00001908      e8c6feffff     call sym.bit_set
+│    │ ╎│   ; CODE XREF from sym.bit_xor @ 0x18f5(x)
+│    └────> 0x0000190d      8345f401       add dword [var_ch], 1
+│      ╎│   ; CODE XREF from sym.bit_xor @ 0x18b5(x)
+│      ╎└─> 0x00001911      8b45f4         mov eax, dword [var_ch]
+│      ╎    0x00001914      3b45cc         cmp eax, dword [var_34h]
+│      └──< 0x00001917      7c9e           jl 0x18b7
+│           0x00001919      90             nop
+│           0x0000191a      488b5df8       mov rbx, qword [var_8h]
+│           0x0000191e      c9             leave
+└           0x0000191f      c3             ret
+            ;-- section..init:
+            ;-- segment.LOAD1:
+┌ 23: sym._init ();
+│           0x00001000      4883ec08       sub rsp, 8                  ; [12] -r-x section size 23 named .init
+│           0x00001004      488b05c53f..   mov rax, qword [reloc.__gmon_start__] ; [0x4fd0:8]=0
+│           0x0000100b      4885c0         test rax, rax
+│       ┌─< 0x0000100e      7402           je 0x1012
+│       │   0x00001010      ffd0           call rax
+│       │   ; CODE XREF from sym._init @ 0x100e(x)
+│       └─> 0x00001012      4883c408       add rsp, 8
+└           0x00001016      c3             ret

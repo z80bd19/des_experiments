@@ -1,0 +1,9 @@
+gcc des.c bit.c ex-1.c -o ex
+
+user@host:~$ r2 /bin/ls
+[0x00005850]> aaaa
+...
+[0x00005850]> pdf @@f > out
+[0x00005850]> q
+user@host:~$ cat out
+

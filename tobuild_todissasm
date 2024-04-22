@@ -1,4 +1,4 @@
-gcc des.c bit.c ex-1.c -o ex
+gcc des.c bit.c des-tools.c -o des-tools
 
 user@host:~$ r2 /bin/ls
 [0x00005850]> aaaa

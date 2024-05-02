@@ -193,24 +193,24 @@ typedef enum DesEorD_ {encipher, decipher} DesEorD;
 
 static void permute(unsigned char *bits, const int *mapping, int n) {
 
-unsigned char      temp[8];
+   unsigned char      temp[8];
 
-int                i;
+   int                i;
 
-/*****************************************************************************
-*                                                                            *
-*  Permute the buffer using an n-entry mapping.                              *
-*                                                                            *
-*****************************************************************************/
+   /*****************************************************************************
+   *                                                                            *
+   *  Permute the buffer using an n-entry mapping.                              *
+   *                                                                            *
+   *****************************************************************************/
 
-memset(temp, 0, (int)ceil(n / 8));
+   memset(temp, 0, (int)ceil(n / 8));
 
-for (i = 0; i < n; i++)
-   bit_set(temp, i, bit_get(bits, mapping[i] - 1));
+   for (i = 0; i < n; i++)
+      bit_set(temp, i, bit_get(bits, mapping[i] - 1));
 
-memcpy(bits, temp, (int)ceil(n / 8));
+   memcpy(bits, temp, (int)ceil(n / 8));
 
-return;
+   return;
 
 }
 
@@ -223,274 +223,274 @@ return;
 static int des_main(const unsigned char *source, unsigned char *target, const
    unsigned char *key, DesEorD direction) {
 
-static unsigned char subkeys[16][7];
+   static unsigned char subkeys[16][7];
 
-unsigned char        temp[8],
-                     lkey[4],
-                     rkey[4],
-                     lblk[6],
-                     rblk[6],
-                     fblk[6],
-                     xblk[6],
-                     sblk;
+   unsigned char        temp[8],
+                        lkey[4],
+                        rkey[4],
+                        lblk[6],
+                        rblk[6],
+                        fblk[6],
+                        xblk[6],
+                        sblk;
 
-int                  row,
-                     col,
-                     i,
-                     j,
-                     k,
-                     p;
+   int                  row,
+                        col,
+                        i,
+                        j,
+                        k,
+                        p;
 
-/*****************************************************************************
-*                                                                            *
-*  If key is NULL, use the subkeys as computed in a previous call.           *
-*                                                                            *
-*****************************************************************************/
+   /*****************************************************************************
+   *                                                                            *
+   *  If key is NULL, use the subkeys as computed in a previous call.           *
+   *                                                                            *
+   *****************************************************************************/
 
-if (key != NULL) {
+   if (key != NULL) {
 
-   /**************************************************************************
-   *                                                                         *
-   *  Make a local copy of the key.                                          *
-   *                                                                         *
-   **************************************************************************/
+      /**************************************************************************
+      *                                                                         *
+      *  Make a local copy of the key.                                          *
+      *                                                                         *
+      **************************************************************************/
 
-   memcpy(temp, key, 8);
+      memcpy(temp, key, 8);
 
-   /**************************************************************************
-   *                                                                         *
-   *  Permute and compress the key into 56 bits.                             *
-   *                                                                         *
-   **************************************************************************/
+      /**************************************************************************
+      *                                                                         *
+      *  Permute and compress the key into 56 bits.                             *
+      *                                                                         *
+      **************************************************************************/
 
-   permute(temp, DesTransform, 56);
+      permute(temp, DesTransform, 56);
 
-   /**************************************************************************
-   *                                                                         *
-   *  Split the key into two 28-bit blocks.                                  *
-   *                                                                         *
-   **************************************************************************/
+      /**************************************************************************
+      *                                                                         *
+      *  Split the key into two 28-bit blocks.                                  *
+      *                                                                         *
+      **************************************************************************/
 
-   memset(lkey, 0, 4);
-   memset(rkey, 0, 4);
+      memset(lkey, 0, 4);
+      memset(rkey, 0, 4);
 
-   for (j = 0; j < 28; j++)
-      bit_set(lkey, j, bit_get(temp, j));
+      for (j = 0; j < 28; j++)
+         bit_set(lkey, j, bit_get(temp, j));
 
-   for (j = 0; j < 28; j++)
-      bit_set(rkey, j, bit_get(temp, j + 28));
+      for (j = 0; j < 28; j++)
+         bit_set(rkey, j, bit_get(temp, j + 28));
 
-   /**************************************************************************
-   *                                                                         *
-   *  Compute the subkeys for each round.                                    *
-   *                                                                         *
-   **************************************************************************/
+      /**************************************************************************
+      *                                                                         *
+      *  Compute the subkeys for each round.                                    *
+      *                                                                         *
+      **************************************************************************/
+
+      for (i = 0; i < 16; i++) {
+
+         /***********************************************************************
+         *                                                                      *
+         *  Rotate each block according to its round.                           *
+         *                                                                      *
+         ***********************************************************************/
+
+         bit_rot_left(lkey, 28, DesRotations[i]);
+         bit_rot_left(rkey, 28, DesRotations[i]);
+
+         /***********************************************************************
+         *                                                                      *
+         *  Concatenate the blocks into a single subkey.                        *
+         *                                                                      *
+         ***********************************************************************/
+
+         for (j = 0; j < 28; j++)
+            bit_set(subkeys[i], j, bit_get(lkey, j));
+
+         for (j = 0; j < 28; j++)
+            bit_set(subkeys[i], j + 28, bit_get(rkey, j));
+
+         /***********************************************************************
+         *                                                                      *
+         *  Do the permuted choice permutation.                                 *
+         *                                                                      *
+         ***********************************************************************/
+
+         permute(subkeys[i], DesPermuted, 48);
+
+      }
+
+   }
+
+   /*****************************************************************************
+   *                                                                            *
+   *  Make a local copy of the source text.                                     *
+   *                                                                            *
+   *****************************************************************************/
+
+   memcpy(temp, source, 8);
+
+   /*****************************************************************************
+   *                                                                            *
+   *  Do the initial permutation.                                               *
+   *                                                                            *
+   *****************************************************************************/
+
+   permute(temp, DesInitial, 64);
+
+   /*****************************************************************************
+   *                                                                            *
+   *  Split the source text into a left and right block of 32 bits.             *
+   *                                                                            *
+   *****************************************************************************/
+
+   memcpy(lblk, &temp[0], 4);
+   memcpy(rblk, &temp[4], 4);
+
+   /*****************************************************************************
+   *                                                                            *
+   *  Encipher or decipher the source text.                                     *
+   *                                                                            *
+   *****************************************************************************/
 
    for (i = 0; i < 16; i++) {
 
-      /***********************************************************************
-      *                                                                      *
-      *  Rotate each block according to its round.                           *
-      *                                                                      *
-      ***********************************************************************/
+      /**************************************************************************
+      *                                                                         *
+      *  Begin the computation of f.                                            *
+      *                                                                         *
+      **************************************************************************/
 
-      bit_rot_left(lkey, 28, DesRotations[i]);
-      bit_rot_left(rkey, 28, DesRotations[i]);
+      memcpy(fblk, rblk, 4);
 
-      /***********************************************************************
-      *                                                                      *
-      *  Concatenate the blocks into a single subkey.                        *
-      *                                                                      *
-      ***********************************************************************/
+      /**************************************************************************
+      *                                                                         *
+      *  Permute and expand the copy of the right block into 48 bits.           *
+      *                                                                         *
+      **************************************************************************/
 
-      for (j = 0; j < 28; j++)
-         bit_set(subkeys[i], j, bit_get(lkey, j));
+      permute(fblk, DesExpansion, 48);
 
-      for (j = 0; j < 28; j++)
-         bit_set(subkeys[i], j + 28, bit_get(rkey, j));
+      /**************************************************************************
+      *                                                                         *
+      *  Apply the appropriate subkey for the round.                            *
+      *                                                                         *
+      **************************************************************************/
 
-      /***********************************************************************
-      *                                                                      *
-      *  Do the permuted choice permutation.                                 *
-      *                                                                      *
-      ***********************************************************************/
+      if (direction == encipher) {
 
-      permute(subkeys[i], DesPermuted, 48);
+         /***********************************************************************
+         *                                                                      *
+         *  For enciphering, subkeys are applied in increasing order.           *
+         *                                                                      *
+         ***********************************************************************/
 
-   }
+         bit_xor(fblk, subkeys[i], xblk, 48);
+         memcpy(fblk, xblk, 6);
 
-}
+         }
 
-/*****************************************************************************
-*                                                                            *
-*  Make a local copy of the source text.                                     *
-*                                                                            *
-*****************************************************************************/
+      else {
 
-memcpy(temp, source, 8);
+         /***********************************************************************
+         *                                                                      *
+         *  For deciphering, subkeys are applied in decreasing order.           *
+         *                                                                      *
+         ***********************************************************************/
 
-/*****************************************************************************
-*                                                                            *
-*  Do the initial permutation.                                               *
-*                                                                            *
-*****************************************************************************/
-
-permute(temp, DesInitial, 64);
-
-/*****************************************************************************
-*                                                                            *
-*  Split the source text into a left and right block of 32 bits.             *
-*                                                                            *
-*****************************************************************************/
-
-memcpy(lblk, &temp[0], 4);
-memcpy(rblk, &temp[4], 4);
-
-/*****************************************************************************
-*                                                                            *
-*  Encipher or decipher the source text.                                     *
-*                                                                            *
-*****************************************************************************/
-
-for (i = 0; i < 16; i++) {
-
-   /**************************************************************************
-   *                                                                         *
-   *  Begin the computation of f.                                            *
-   *                                                                         *
-   **************************************************************************/
-
-   memcpy(fblk, rblk, 4);
-
-   /**************************************************************************
-   *                                                                         *
-   *  Permute and expand the copy of the right block into 48 bits.           *
-   *                                                                         *
-   **************************************************************************/
-
-   permute(fblk, DesExpansion, 48);
-
-   /**************************************************************************
-   *                                                                         *
-   *  Apply the appropriate subkey for the round.                            *
-   *                                                                         *
-   **************************************************************************/
-
-   if (direction == encipher) {
-
-      /***********************************************************************
-      *                                                                      *
-      *  For enciphering, subkeys are applied in increasing order.           *
-      *                                                                      *
-      ***********************************************************************/
-
-      bit_xor(fblk, subkeys[i], xblk, 48);
-      memcpy(fblk, xblk, 6);
+         bit_xor(fblk, subkeys[15 - i], xblk, 48);
+         memcpy(fblk, xblk, 6);
 
       }
 
-   else {
+      /**************************************************************************
+      *                                                                         *
+      *  Do the S-box substitutions.                                            *
+      *                                                                         *
+      **************************************************************************/
 
-      /***********************************************************************
-      *                                                                      *
-      *  For deciphering, subkeys are applied in decreasing order.           *
-      *                                                                      *
-      ***********************************************************************/
+      p = 0;
 
-      bit_xor(fblk, subkeys[15 - i], xblk, 48);
-      memcpy(fblk, xblk, 6);
+      for (j = 0; j < 8; j++) {
 
-   }
+         /***********************************************************************
+         *                                                                      *
+         *  Compute a row and column into the S-box tables.                     *
+         *                                                                      *
+         ***********************************************************************/
 
-   /**************************************************************************
-   *                                                                         *
-   *  Do the S-box substitutions.                                            *
-   *                                                                         *
-   **************************************************************************/
+         row = (bit_get(fblk, (j * 6)+0) * 2) + (bit_get(fblk, (j * 6)+5) * 1);
+         col = (bit_get(fblk, (j * 6)+1) * 8) + (bit_get(fblk, (j * 6)+2) * 4) +
+               (bit_get(fblk, (j * 6)+3) * 2) + (bit_get(fblk, (j * 6)+4) * 1);
 
-   p = 0;
+         /***********************************************************************
+         *                                                                      *
+         *  Do the S-box substitution for the current six-bit block.            *
+         *                                                                      *
+         ***********************************************************************/
 
-   for (j = 0; j < 8; j++) {
+         sblk = (unsigned char)DesSbox[j][row][col];
 
-      /***********************************************************************
-      *                                                                      *
-      *  Compute a row and column into the S-box tables.                     *
-      *                                                                      *
-      ***********************************************************************/
+         for (k = 4; k < 8; k++) {
 
-      row = (bit_get(fblk, (j * 6)+0) * 2) + (bit_get(fblk, (j * 6)+5) * 1);
-      col = (bit_get(fblk, (j * 6)+1) * 8) + (bit_get(fblk, (j * 6)+2) * 4) +
-            (bit_get(fblk, (j * 6)+3) * 2) + (bit_get(fblk, (j * 6)+4) * 1);
+            bit_set(fblk, p, bit_get(&sblk, k));
+            p++;
 
-      /***********************************************************************
-      *                                                                      *
-      *  Do the S-box substitution for the current six-bit block.            *
-      *                                                                      *
-      ***********************************************************************/
-
-      sblk = (unsigned char)DesSbox[j][row][col];
-
-      for (k = 4; k < 8; k++) {
-
-         bit_set(fblk, p, bit_get(&sblk, k));
-         p++;
+         }
 
       }
 
+      /**************************************************************************
+      *                                                                         *
+      *  Do the P-box permutation to complete f.                                *
+      *                                                                         *
+      **************************************************************************/
+
+      permute(fblk, DesPbox, 32);
+
+      /**************************************************************************
+      *                                                                         *
+      *  Compute the XOR of the left block and f.                               *
+      *                                                                         *
+      **************************************************************************/
+
+      bit_xor(lblk, fblk, xblk, 32);
+
+      /**************************************************************************
+      *                                                                         *
+      *  Set the left block for the round.                                      *
+      *                                                                         *
+      **************************************************************************/
+
+      memcpy(lblk, rblk, 4);
+
+      /**************************************************************************
+      *                                                                         *
+      *  Set the right block for the round.                                     *
+      *                                                                         *
+      **************************************************************************/
+
+      memcpy(rblk, xblk, 4);
+
    }
 
-   /**************************************************************************
-   *                                                                         *
-   *  Do the P-box permutation to complete f.                                *
-   *                                                                         *
-   **************************************************************************/
+   /*****************************************************************************
+   *                                                                            *
+   *  Set the target text to the rejoined final right and left blocks.          *
+   *                                                                            *
+   *****************************************************************************/
 
-   permute(fblk, DesPbox, 32);
+   memcpy(&target[0], rblk, 4);
+   memcpy(&target[4], lblk, 4);
 
-   /**************************************************************************
-   *                                                                         *
-   *  Compute the XOR of the left block and f.                               *
-   *                                                                         *
-   **************************************************************************/
+   /*****************************************************************************
+   *                                                                            *
+   *  Do the final permutation.                                                 *
+   *                                                                            *
+   *****************************************************************************/
 
-   bit_xor(lblk, fblk, xblk, 32);
+   permute(target, DesFinal, 64);
 
-   /**************************************************************************
-   *                                                                         *
-   *  Set the left block for the round.                                      *
-   *                                                                         *
-   **************************************************************************/
-
-   memcpy(lblk, rblk, 4);
-
-   /**************************************************************************
-   *                                                                         *
-   *  Set the right block for the round.                                     *
-   *                                                                         *
-   **************************************************************************/
-
-   memcpy(rblk, xblk, 4);
-
-}
-
-/*****************************************************************************
-*                                                                            *
-*  Set the target text to the rejoined final right and left blocks.          *
-*                                                                            *
-*****************************************************************************/
-
-memcpy(&target[0], rblk, 4);
-memcpy(&target[4], lblk, 4);
-
-/*****************************************************************************
-*                                                                            *
-*  Do the final permutation.                                                 *
-*                                                                            *
-*****************************************************************************/
-
-permute(target, DesFinal, 64);
-
-return 0;
+   return 0;
 
 }
 
@@ -503,9 +503,9 @@ return 0;
 void des_encipher(const unsigned char *plaintext, unsigned char *ciphertext,
    const unsigned char *key) {
 
-des_main(plaintext, ciphertext, key, encipher);
+   des_main(plaintext, ciphertext, key, encipher);
 
-return;
+   return;
 
 }
 
@@ -518,8 +518,47 @@ return;
 void des_decipher(const unsigned char *ciphertext, unsigned char *plaintext,
    const unsigned char *key) {
 
-des_main(ciphertext, plaintext, key, decipher);
+   des_main(ciphertext, plaintext, key, decipher);
 
-return;
+   return;
 
+}
+
+static int des_linear_analysis_stage1(const unsigned int *rounds) {
+
+   unsigned char input_bit_a = 0;
+   unsigned char input_bit_b = 0;
+
+   unsigned char output_bit_a = 0;
+   unsigned char output_bit_b = 0;
+      
+   unsigned char      mask;
+
+   int                i,j,k,l;
+
+   for (i = 0; i < (input_bit_a % 8); i++)
+   {
+      input_bit_a = input_bit_a << 1;
+
+      for (j = 0; j < (input_bit_b % 8); j++)
+      {
+         input_bit_b = input_bit_b << 1;
+
+         for (k = 0; k < (output_bit_a % 8); k++)
+         {
+            output_bit_a = output_bit_a << 1;
+
+            for (l = 0; l < (output_bit_b % 8); l++)
+            {
+               output_bit_b = output_bit_b << 1;
+
+            }
+         }
+      }
+   }
+
+}
+
+static unsigned char *keyrecovery des_linear_analysis_stage2(const unsigned int *rounds, const unsigned char *ciphertexts[]) {
+  return 0;
 }

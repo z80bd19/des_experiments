@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include "encrypt.h"
 
@@ -25,12 +26,21 @@ int                i;
 *                                                                            *
 *****************************************************************************/
 
-static int f_ROUNDS           = FALSE;
-static int f_ZEROED_KEY;      = FALSE;
-static int f_NO_PERMUTATIONS  = FALSE;
-static int f_USE_GFNI         = FALSE;
-static int f_ANALYZE          = FALSE;
-static int f_VERBOSE          = FALSE;
+static struct _CMD_OPTIONS {
+	int f_ROUNDS           ;
+	int f_ZEROED_KEY;      ;
+	int f_NO_PERMUTATIONS  ;
+	int f_USE_GFNI         ;
+	int f_ANALYZE          ;
+	int f_VERBOSE          ;
+} CMD_OPTIONS; 
+
+CMD_OPTIONS.f_ROUNDS           = false;
+CMD_OPTIONS.f_ZEROED_KEY       = false;
+CMD_OPTIONS.f_NO_PERMUTATIONS  = false;
+CMD_OPTIONS.f_USE_GFNI         = false;
+CMD_OPTIONS.f_ANALYZE          = false;
+CMD_OPTIONS.f_VERBOSE          = false;
 
 destmp[0] = 0xa9;
 destmp[1] = 0x10;
@@ -52,50 +62,50 @@ deskey[7] = 0x0e;
 
 fprintf(stdout, "DES-TOOLS\n");
 
-
    int opt; 
 
    // put ':' in the starting of the 
    // string so that program can  
    //distinguish between '?' and ':'  
-   while((opt = getopt(argc, argv, “:if:lrx”)) != -1)  
+   while((opt = getopt(argc, argv, ':if:lrx')) != -1)  
    {  
       switch(opt)  
       {  
          case 'r':  
-               printf(“rounds: %c\n”, opt);  
+	       CMD_OPTIONS.f_ROUNDS = true;
+               printf('rounds: %c\n', opt);  
                break;
          case 'z':
-               printf(“zeroed key: %c\n”, opt);  
+	       CMD_OPTIONS.f_ZEROED_KEY = true;        
+               printf('zeroed key: %c\n', opt);  
                break;  
          case 'n':  
-               printf(“no permutations: %c\n”, opt);  
+	       CMD_OPTIONS.f_NO_PERMUTATIONS = true;
+               printf('no permutations: %c\n', opt);  
                break;  
          case 'gfni':  
-               printf(“use GFNI: %s\n”, optarg);  
+               printf('use GFNI: %s\n', opt);  
                break;
          case 'a':  
-               printf(“Apply Linear Analysis : %s\n”, optarg);  
+               printf('Apply Linear Analysis : %s\n', opt);  
                break;
          case 'v':  
-               printf("Verbose": %s\n”, optarg);  
+               printf('Verbose: %s\n', opt);  
                break;  
          case ':':  
-               printf(“option needs a value\n”);  
+               printf('option needs a value\n');  
                break;  
          case '?':  
-               printf(“unknown option: %c\n”, optopt); 
+               printf('unknown option: %c\n', opt); 
                break;  
       }  
    }  
 
    // optind is for the extra arguments 
    // which are not parsed 
-   for(; optind < argc; optind++){      
-      printf(“extra arguments: %s\n”, argv[optind]);  
+   for(int optind = 0; optind < argc; optind++){      
+      printf('extra arguments: %s\n', argv[optind]);  
    } 
-
-
 
 
 fprintf(stdout, "Using key: %02x %02x %02x %02x %02x %02x %02x %02x\n",

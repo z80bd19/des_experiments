@@ -559,6 +559,3 @@ static int des_linear_analysis_stage1(const unsigned int *rounds) {
 
 }
 
-static unsigned char *keyrecovery des_linear_analysis_stage2(const unsigned int *rounds, const unsigned char *ciphertexts[]) {
-  return 0;
-}

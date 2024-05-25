@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include <unistd.h>
@@ -11,7 +12,7 @@ unsigned char      destmp[8],
                    desctx[8],
                    deskey[8];
 
-int                i;
+int num_rounds;
 
 /*****************************************************************************
 *                                                                            *
@@ -20,7 +21,7 @@ int                i;
 *  -r     Number of rounds
 *  -z     Use zeroed key
 *  -n     No permutations
-*  -gfni  Use Galois Field New Instruction
+*  -g     Use Galois Field New Instruction
 *  -a     Analyze (determine linear approximation)
 *  -v     Verbose
 *                                                                            *
@@ -62,51 +63,42 @@ deskey[7] = 0x0e;
 
 fprintf(stdout, "DES-TOOLS\n");
 
-   int opt; 
+int opt; 
 
-   // put ':' in the starting of the 
-   // string so that program can  
-   //distinguish between '?' and ':'  
-   while((opt = getopt(argc, argv, ':if:lrx')) != -1)  
+while((opt = getopt(argc, argv, ":vzngar:")) != -1)
+{  
+   switch(opt)  
    {  
-      switch(opt)  
-      {  
-         case 'r':  
-	       CMD_OPTIONS.f_ROUNDS = true;
-               printf('rounds: %c\n', opt);  
-               break;
-         case 'z':
-	       CMD_OPTIONS.f_ZEROED_KEY = true;        
-               printf('zeroed key: %c\n', opt);  
-               break;  
-         case 'n':  
-	       CMD_OPTIONS.f_NO_PERMUTATIONS = true;
-               printf('no permutations: %c\n', opt);  
-               break;  
-         case 'gfni':  
-               printf('use GFNI: %s\n', opt);  
-               break;
-         case 'a':  
-               printf('Apply Linear Analysis : %s\n', opt);  
-               break;
-         case 'v':  
-               printf('Verbose: %s\n', opt);  
-               break;  
-         case ':':  
-               printf('option needs a value\n');  
-               break;  
-         case '?':  
-               printf('unknown option: %c\n', opt); 
-               break;  
-      }  
+      case 'r':  
+       CMD_OPTIONS.f_ROUNDS = true;
+         num_rounds = atol(optarg);
+         printf("rounds: %i\n", num_rounds);  
+         break;
+      case 'z':
+       CMD_OPTIONS.f_ZEROED_KEY = true;        
+         printf("zeroed key\n");  
+         break;  
+      case 'n':  
+         CMD_OPTIONS.f_NO_PERMUTATIONS = true;
+         printf("no permutations\n");  
+         break;  
+      case 'g':  
+         printf("use GFNI\n");  
+         break;
+      case 'a':  
+         printf("Apply Linear Analysis\n");  
+         break;
+      case 'v':  
+         printf("Verbose\n");  
+         break;  
+      case ':':  
+         printf("option needs a value\n");  
+         break; 
+      case '?':  
+         printf("unknown option: %c\n", opt); 
+         break;  
    }  
-
-   // optind is for the extra arguments 
-   // which are not parsed 
-   for(int optind = 0; optind < argc; optind++){      
-      printf('extra arguments: %s\n', argv[optind]);  
-   } 
-
+}  
 
 fprintf(stdout, "Using key: %02x %02x %02x %02x %02x %02x %02x %02x\n",
    deskey[0], deskey[1], deskey[2], deskey[3], deskey[4], deskey[5],

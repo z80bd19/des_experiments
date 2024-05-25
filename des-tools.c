@@ -12,7 +12,7 @@ unsigned char      destmp[8],
                    desctx[8],
                    deskey[8];
 
-int num_rounds;
+int num_rounds = 16;
 
 /*****************************************************************************
 *                                                                            *
@@ -77,6 +77,7 @@ while((opt = getopt(argc, argv, ":vzngar:")) != -1)
       case 'z':
        CMD_OPTIONS.f_ZEROED_KEY = true;        
          printf("zeroed key\n");  
+         for(int j=0;j<8;j++){deskey[j] = 0x00;}
          break;  
       case 'n':  
          CMD_OPTIONS.f_NO_PERMUTATIONS = true;
@@ -104,7 +105,7 @@ fprintf(stdout, "Using key: %02x %02x %02x %02x %02x %02x %02x %02x\n",
    deskey[0], deskey[1], deskey[2], deskey[3], deskey[4], deskey[5],
    deskey[6], deskey[7]);
 
-des_encipher(destmp, desctx, deskey);
+des_encipher(destmp, desctx, deskey, num_rounds);
  
 fprintf(stdout, "plaintext: %02x %02x %02x %02x %02x %02x %02x %02x\n",
    destmp[0], destmp[1], destmp[2], destmp[3], destmp[4], destmp[5],

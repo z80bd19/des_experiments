@@ -70,7 +70,7 @@ fprintf(stdout, "deskey: %02x %02x %02x %02x %02x %02x %02x %02x\n",
    deskey[0], deskey[1], deskey[2], deskey[3], deskey[4], deskey[5],
    deskey[6], deskey[7]);
 
-des_encipher(destmp, desctx, deskey);
+des_encipher(destmp, desctx, deskey, 16);
 
 fprintf(stdout, "After enciphering\n");
 

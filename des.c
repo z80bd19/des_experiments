@@ -7,7 +7,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <stdbool.h>
 #include "bit.h"
 #include "encrypt.h"
 
@@ -221,7 +221,16 @@ static void permute(unsigned char *bits, const int *mapping, int n) {
 *****************************************************************************/
 
 static int des_main(const unsigned char *source, unsigned char *target, const
-   unsigned char *key, DesEorD direction) {
+   unsigned char *key, DesEorD direction, int rounds) {
+
+   // rounds should be 16 for standard DES
+   // TODO: Only permute for standard DES (ie. 16 rounds)
+   // Unfortunatelly, permute() also expands the bits to 48 so
+   // need to extract out the expansion
+
+   int STANDARD_DES;
+
+   STANDARD_DES = (rounds == 16);
 
    static unsigned char subkeys[16][7];
 
@@ -352,7 +361,7 @@ static int des_main(const unsigned char *source, unsigned char *target, const
    *                                                                            *
    *****************************************************************************/
 
-   for (i = 0; i < 16; i++) {
+   for (i = 0; i < rounds; i++) {
 
       /**************************************************************************
       *                                                                         *
@@ -501,9 +510,9 @@ static int des_main(const unsigned char *source, unsigned char *target, const
 *****************************************************************************/
 
 void des_encipher(const unsigned char *plaintext, unsigned char *ciphertext,
-   const unsigned char *key) {
+   const unsigned char *key, int rounds) {
 
-   des_main(plaintext, ciphertext, key, encipher);
+   des_main(plaintext, ciphertext, key, encipher, rounds);
 
    return;
 
@@ -518,7 +527,7 @@ void des_encipher(const unsigned char *plaintext, unsigned char *ciphertext,
 void des_decipher(const unsigned char *ciphertext, unsigned char *plaintext,
    const unsigned char *key) {
 
-   des_main(ciphertext, plaintext, key, decipher);
+   des_main(ciphertext, plaintext, key, decipher, 16);
 
    return;
 

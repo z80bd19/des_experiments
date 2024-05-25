@@ -29,7 +29,7 @@ int                i;
 *                                                                            *
 *****************************************************************************/
 
-des_encipher(&plaintext[0], &ciphertext[0], key);
+des_encipher(&plaintext[0], &ciphertext[0], key, 16);
 
 /*****************************************************************************
 *                                                                            *
@@ -42,7 +42,7 @@ i = 8;
 while (i < size) {
 
    bit_xor(&plaintext[i], &ciphertext[i - 8], temp, 64);
-   des_encipher(temp, &ciphertext[i], NULL);
+   des_encipher(temp, &ciphertext[i], NULL, 16);
    i = i + 8;
 
 }
